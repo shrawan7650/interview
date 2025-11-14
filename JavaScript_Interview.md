@@ -957,6 +957,32 @@ const triple = multiplier(3);
 console.log(double(5));  // 10
 console.log(triple(5));  // 15
 
+❌ var → function scope
+
+var block ko ignore karta hai, sirf function ko scope maanta hai.
+
+✔️ let → block scope
+
+let har block { } ke andar apna separate variable banata hai.
+
+Full Concept Summary (20 sec me bol sakte ho)
+var (function scope)
+
+Block { } ko nahi maanta
+
+Loop me ek hi i hota hai
+
+setTimeout closure me final i (3) capture hoti hai
+
+let (block scope)
+
+Har iteration ek naya block create karta hai
+
+Har iteration me naya j
+
+setTimeout closure correct j ko capture karta hai
+
+
 // Closure in loops (classic problem)
 // WRONG
 for (var i = 0; i < 3; i++) {
@@ -968,14 +994,29 @@ for (let j = 0; j < 3; j++) {
   setTimeout(() => console.log(j), 100); // 0, 1, 2
 }
 
-// CORRECT - using closure (IIFE)
-for (var k = 0; k < 3; k++) {
-  (function(k) {
-    setTimeout(() => console.log(k), 100); // 0, 1, 2
-  })(k);
+Bonus: Agar var ko hi use karna ho?
+
+Tab IIFE use karte hain:
+
+for (var i = 0; i < 3; i++) {
+  (function(x){
+    setTimeout(() => console.log(x), 100);
+  })(i);
 }
 
-// Partial application
+
+✔ Output: 0 1 2
+
+Because x ek copy ban gaya.
+
+// Partial application and Currying Kya Hai?
+
+Currying matlab:
+
+Ek function jo multiple arguments leta tha, usko hum is tarah tod dete hain ki wo ek-ek argument lekar chain banata hai.
+Currying ek technique hai jisme ek function multiple arguments ki jagah ek argument per function return karta hai.
+Ye code ko reusable, modular, clean aur functional banata hai.
+
 function add(a) {
   return function(b) {
     return function(c) {
