@@ -1552,15 +1552,1851 @@ db.orders.find(
 
 ---
 
-## 🔥 Ready for LEVEL 3: ADVANCED?
+---
+
+## 🔥 LEVEL 3: ADVANCED (Production-ready Architecture)
+
+### Q13: Replication kya hai? Replica Set kaise kaam karta hai?
+
+**Answer:**
+Replication ek mechanism hai jisne data ki copies multiple servers pe hoti hain, high availability aur fault tolerance provide karta hai.
+
+**Deep Explanation:**
+
+**Replica Set = Primary + Secondary + Arbiter**
+
+```
+┌──────────────┐         ┌──────────────┐         ┌──────────────┐
+│   PRIMARY    │◄────────►│  SECONDARY   │         │   SECONDARY  │
+│   (Active)   │  Sync    │   (Standby)  │         │  (Standby)   │
+└──────────────┘         └──────────────┘         └──────────────┘
+      ↓                         ↑
+   Writes                    Reads
+   Reads                  (optional)
+      ↓
+┌──────────────┐
+│   ARBITER    │
+│  (Vote only) │
+└──────────────┘
+```
+
+**How Replication Works:**
+
+1. **Write to Primary**: Client writes primary ko
+2. **Apply Locally**: Primary apne local storage mein apply karta hai
+3. **Replicate**: Primary operation log (oplog) ko secondary ko bhejta hai
+4. **Apply on Secondary**: Secondary woh operations apply karta hai
+5. **Acknowledge**: Replication complete hone ke baad client ko ack milta hai
+
+```javascript
+// Replica Set Configuration (3 nodes)
+// Primary (port 27017)
+// Secondary 1 (port 27018)
+// Secondary 2 (port 27019)
+
+// Initialize replica set
+rs.initiate({
+  _id: "myReplicaSet",
+  members: [
+    { _id: 0, host: "server1:27017", priority: 1 },  // Primary
+    { _id: 1, host: "server2:27017", priority: 0 },  // Secondary
+    { _id: 2, host: "server3:27017", priority: 0 }   // Secondary
+  ]
+})
+
+// Status check
+rs.status()
+
+// Configuration
+rs.conf()
+```
+
+**Replica Set Members:**
+
+| Member | Role | Writes | Reads | Priority |
+|--------|------|--------|-------|----------|
+| Primary | Active | Yes | Yes | High |
+| Secondary | Standby | No | Yes* | Low |
+| Arbiter | Vote only | No | No | N/A |
+| Hidden | Backup | No | No | 0 |
+| Delayed | Historical | No | No | 0 |
+
+*Secondary se reads take करना risky hai (slightly stale data)
+
+**Automatic Failover (Election):**
+```
+If Primary goes down → Secondaries elect naya Primary
+
+Timeline:
+T=0s: Primary crashes
+T=1-5s: Secondaries detect
+T=5-10s: Election happens
+T=10s: New Primary elected
+```
+
+```javascript
+// Node.js Connection String
+const uri = "mongodb://server1:27017,server2:27017,server3:27017/?replicaSet=myReplicaSet";
+
+const client = new MongoClient(uri);
+
+// Automatic reconnection aur failover handle ho jayega
+```
+
+**Write Concern (How many replicas confirm likhna chahiye):**
+```javascript
+// Write concern levels
+// w: 0 - No confirmation
+// w: 1 - Primary confirm (default)
+// w: 2 - Primary + 1 Secondary
+// w: "majority" - Majority of nodes (most safe)
+
+db.users.insertOne(
+  { name: "Rahul" },
+  { writeConcern: { w: "majority", j: true } }
+  // j: true = Journal mein likho (durable)
+)
+```
+
+**Read Preference (Kahan se read karna?):**
+```javascript
+// primary - Sirf primary (consistent, slow)
+// primaryPreferred - Primary prefer, agar down ho toh secondary
+// secondary - Sirf secondary (fast, stale data)
+// secondaryPreferred - Secondary prefer, fallback to primary
+// nearest - Lowest latency
+
+db.users.find({}).readPref("secondary")
+```
+
+**Interview Tip:** Replica set minimum 3 nodes hone chahiye (1 primary + 2 secondary), 5 nodes recommended. Arbiter se cost save ho sakta hai agar vote chahiye without storing data.
+
+---
+
+### Q14: Sharding kya hai? Data ko scale kaise karte ho?
+
+**Answer:**
+Sharding horizontal scaling hai jisne data multiple servers (shards) mein distribute karta hai. Jab data bahut badh jaye toh sharding se load distribute hota hai.
+
+**Deep Explanation:**
+
+**Sharding Architecture:**
+```
+┌─────────────────────────────────────────┐
+│        Client Application               │
+└──────────────────┬──────────────────────┘
+                   │
+        ┌──────────┴──────────┐
+        │  Mongos Router      │
+        │  (Query Router)     │
+        └──────────┬──────────┘
+        ┌─────────┬─────────┬─────────┐
+        ▼         ▼         ▼         ▼
+    ┌────────┐┌────────┐┌────────┐
+    │Shard 1 ││Shard 2 ││Shard 3 │
+    │Data:   ││Data:   ││Data:   │
+    │A-H     ││I-Q     ││R-Z     │
+    └────────┘└────────┘└────────┘
+        │         │         │
+    ┌─────────────┴─────────────┐
+    │   Config Servers (3)      │
+    │   Metadata & Shard Map    │
+    └──────────────────────────┘
+```
+
+**Shard Key Selection (Most Important!):**
+```javascript
+// GOOD Shard Key (cardinality high, evenly distributed)
+db.users.createIndex({ userId: 1 })
+sh.shardCollection("mydb.users", { userId: 1 })
+
+// BAD Shard Key (low cardinality, uneven distribution)
+sh.shardCollection("mydb.users", { country: 1 })
+// Sirf 195 countries hain, some shard mein data zyada hoga
+// "Hot Shard" problem
+
+// EVEN WORSE (monotonically increasing)
+sh.shardCollection("mydb.users", { timestamp: 1 })
+// Latest records sirf ek shard mein jayenge
+// Write bottleneck
+```
+
+**Shard Key Characteristics:**
+1. **High Cardinality** - Zaada unique values
+2. **Low Frequency** - Values frequently change nahi honge
+3. **Non-Monotonic** - Continuously increasing nahi hone
+4. **Evenly Distributed** - Balanced distribution
+
+**Sharding Process:**
+```javascript
+// Step 1: Enable sharding on database
+sh.enableSharding("mydb")
+
+// Step 2: Create index on shard key
+db.users.createIndex({ userId: 1 })
+
+// Step 3: Shard collection
+sh.shardCollection("mydb.users", { userId: 1 })
+
+// Step 4: Check shard status
+db.printShardingStatus()
+```
+
+**Data Distribution:**
+```
+User IDs: 1-1000
+
+Shard 1: 1-333
+Shard 2: 334-666
+Shard 3: 667-1000
+
+When insert { userId: 500 }
+→ Mongos calculates shard key
+→ Determines Shard 2
+→ Inserts into Shard 2
+```
+
+**Chunk Migration (Automatic Balancing):**
+```
+If Shard 1 has too much data →
+→ Balancer moves chunks to other shards
+→ Load balanced!
+```
+
+**Query Routing:**
+```javascript
+// Targeted Query (GOOD - goes to 1 shard)
+db.users.find({ userId: 500 })
+// Mongos knows userId 500 is in Shard 2
+// Query only Shard 2 (fast)
+
+// Scatter-Gather Query (BAD - hits all shards)
+db.users.find({ country: "India" })
+// No shard key in query
+// Mongos has to ask all 3 shards
+// Slower
+```
+
+**Sharding vs Replica Set:**
+
+| Aspect | Replica Set | Sharding |
+|--------|-------------|----------|
+| Purpose | High Availability | Horizontal Scaling |
+| Data | Same on all nodes | Different on each shard |
+| Scalability | Limited | Unlimited |
+| Complexity | Simple | Complex |
+| Use When | Small-Medium data | Large data (100GB+) |
+
+**Often Together:**
+```
+Shard 1: Replica Set (Primary + 2 Secondary)
+Shard 2: Replica Set (Primary + 2 Secondary)
+Shard 3: Replica Set (Primary + 2 Secondary)
+```
+
+**Interview Tip:** "Shard key sirf ek baar choose hota hai, baad mein change nahi kar sakte" - ye zaroor mention karo. Shard key wrong choose karne se "Hot Shard" ya uneven distribution ho sakta hai jo performance ruin kar deta hai.
+
+---
+
+### Q15: Transactions - ACID Properties kaise?
+
+**Answer:**
+MongoDB 4.0 mein transactions add hue, jisne multi-document ACID guarantees provide kiye. Pehle sirf single document atomic tha.
+
+**Deep Explanation:**
+
+**ACID Properties:**
+- **Atomicity**: Sab operations success ya sab fail (all or nothing)
+- **Consistency**: Data always valid state mein
+- **Isolation**: Concurrent transactions nahi interfere
+- **Durability**: Committed data permanent
+
+**Single Document Transaction (Always Atomic):**
+```javascript
+// Pehle se atomic tha
+db.accounts.updateOne(
+  { _id: "account1" },
+  { $inc: { balance: -100 } }
+)
+// Ye sab operations atomic hain: read → modify → write
+
+// Agar server crash ho update ke beech → rollback automatically
+```
+
+**Multi-Document Transaction (4.0+):**
+```javascript
+// Money transfer: Account1 se Account2 ko transfer
+
+// WITHOUT Transaction (Risky!)
+db.accounts.updateOne(
+  { _id: "account1" },
+  { $inc: { balance: -100 } }
+)
+// Agar crash ho yahan → Account1 se paise gaye but Account2 ko nahi!
+
+// WITH Transaction (Safe!)
+const session = db.getMongo().startSession();
+
+session.startTransaction();
+try {
+  db.accounts.updateOne(
+    { _id: "account1" },
+    { $inc: { balance: -100 } },
+    { session }
+  );
+
+  db.accounts.updateOne(
+    { _id: "account2" },
+    { $inc: { balance: +100 } },
+    { session }
+  );
+
+  session.commitTransaction();
+  // Dono updates committed, ya dono rollback
+} catch (error) {
+  session.abortTransaction();
+}
+session.endSession();
+```
+
+**Node.js Example:**
+```javascript
+const { MongoClient } = require('mongodb');
+
+async function transferMoney(amount) {
+  const client = new MongoClient(uri);
+  const session = client.startSession();
+
+  try {
+    await session.withTransaction(async () => {
+      const accountsDb = client.db("bank").collection("accounts");
+
+      // Debit from account1
+      await accountsDb.updateOne(
+        { _id: "account1" },
+        { $inc: { balance: -amount } },
+        { session }
+      );
+
+      // Credit to account2
+      await accountsDb.updateOne(
+        { _id: "account2" },
+        { $inc: { balance: amount } },
+        { session }
+      );
+    });
+    console.log("Transfer successful");
+  } catch (error) {
+    console.log("Transfer failed, rolled back");
+  } finally {
+    await session.endSession();
+    await client.close();
+  }
+}
+```
+
+**Isolation Levels:**
+
+**1. Read Uncommitted (Default)**
+```javascript
+// Transaction incomplete hone se pehle read kar sakte ho
+// Dirty reads possible
+// Performance best
+
+db.startTransaction({
+  readConcern: { level: "local" }
+})
+```
+
+**2. Read Committed**
+```javascript
+// Sirf committed data read
+// Dirty reads nahi hote
+// Performance medium
+
+db.startTransaction({
+  readConcern: { level: "committed" }
+})
+```
+
+**3. Snapshot**
+```javascript
+// Consistent snapshot
+// Phantom reads nahi hote
+// Performance slow but secure
+
+db.startTransaction({
+  readConcern: { level: "snapshot" }
+})
+```
+
+**Transaction Limitations:**
+- Sirf **Replica Sets** pe kaam karte hain (single node pe nahi)
+- Transactions mein **oplog size limit** (16MB)
+- **Sharded transactions** simp complicated aur slow hain
+
+**Interview Tip:** Transactions MongoDB mein expensive hain (performance cost), sirf zaruri jagah use karo. 99% time single document operations atomic hote hain, unnecessary transactions avoid karo.
+
+---
+
+### Q16: MongoDB Atlas - Cloud Platform
+
+**Answer:**
+MongoDB Atlas fully-managed cloud database service hai. Server manage, backup, scaling - sab automatically.
+
+**Key Features:**
+
+**1. Deployment Options:**
+```
+- Shared Cluster (free tier, limited)
+- Dedicated Cluster (production)
+- Serverless (pay-per-request)
+```
+
+**2. Automatic Backups:**
+```
+- Continuous backups (every 5 minutes)
+- Point-in-time recovery
+- Disaster recovery
+```
+
+**3. Auto-Scaling:**
+```javascript
+// Storage automatically scale
+// Throughput auto-scale
+// No manual intervention
+```
+
+**4. Monitoring & Alerts:**
+```
+- Real-time metrics
+- Performance advisor
+- Query profiler
+- Slow query log
+```
+
+**5. Security Features:**
+```
+- IP Whitelist / VPC Peering
+- TLS/SSL encryption
+- Database Users & Roles
+- Audit logs
+```
+
+**6. Multi-Region Replication:**
+```
+Data multiple regions mein:
+- Global redundancy
+- Low-latency reads
+- Disaster recovery
+```
+
+**Connection Example:**
+```javascript
+const uri = "mongodb+srv://username:password@cluster.mongodb.net/dbname";
+const client = new MongoClient(uri);
+```
+
+**Interview Tip:** Atlas production mein use karte ho, managed service, no ops overhead. Sirf develop/testing ke liye local MongoDB use karo.
+
+---
+
+### Q17: Security - Authentication aur Authorization
+
+**Answer:**
+MongoDB mein user access control, encryption, audit trails important hain.
+
+**1. Authentication (Who are you?)**
+
+**SCRAM-SHA-256 (Default):**
+```javascript
+// User create karo
+db.createUser({
+  user: "rahul",
+  pwd: "securePassword123",
+  roles: ["readWrite"]
+})
+
+// Connect with auth
+const uri = "mongodb://rahul:securePassword123@localhost:27017/mydb";
+const client = new MongoClient(uri);
+```
+
+**2. Authorization (What can you do?)**
+
+**Built-in Roles:**
+```javascript
+// Read-only
+db.createUser({
+  user: "analyst",
+  pwd: "password",
+  roles: [{ role: "read", db: "mydb" }]
+})
+
+// Read-Write
+db.createUser({
+  user: "app",
+  pwd: "password",
+  roles: [{ role: "readWrite", db: "mydb" }]
+})
+
+// Admin
+db.createUser({
+  user: "admin",
+  pwd: "password",
+  roles: [{ role: "dbAdmin", db: "mydb" }]
+})
+```
+
+**Custom Roles:**
+```javascript
+db.createRole({
+  role: "customRole",
+  privileges: [
+    {
+      resource: { db: "mydb", collection: "users" },
+      actions: ["find", "insert"]  // Sirf ye operations
+    }
+  ],
+  roles: []
+})
+```
+
+**3. Encryption:**
+
+**In Transit (TLS/SSL):**
+```javascript
+const client = new MongoClient(uri, {
+  tls: true,
+  tlsCAFile: "/path/to/ca.pem"
+})
+```
+
+**At Rest:**
+```
+Atlas mein encryption-at-rest automatic
+Self-managed mein:
+- File system encryption
+- Key management systems
+```
+
+**4. Network Security:**
+
+**IP Whitelist:**
+```
+Atlas → Network Access → IP Whitelist
+Allow sirf trusted IPs ko
+```
+
+**VPC Peering:**
+```
+Private network connection
+Extra security layer
+```
+
+**5. Audit Logs:**
+```javascript
+// Enable audit logging
+mongod --auditDestination file --auditFormat JSON --auditPath /path/to/audit.log
+
+// Commands logged:
+// - Authentication attempts
+// - Database/Collection access
+// - Schema modifications
+```
+
+**Interview Tip:** "Never store passwords in code, use environment variables." RLS jaisa access control important hai, har user ko sirf apna data access karna chahiye.
+
+---
+
+### Q18: Backup & Disaster Recovery
+
+**Answer:**
+Data loss worst nightmare hai, regular backups + recovery plan must-have.
+
+**Backup Types:**
+
+**1. Logical Backup (Application-level):**
+```bash
+# mongodump - entire database export
+mongodump --out /backup/path
+
+# Export specific collection
+mongodump --db mydb --collection users --out /backup/path
+
+# Restore
+mongorestore --db mydb /backup/path/mydb
+```
+
+**2. Physical Backup (File-level):**
+```bash
+# Copy DBPath files (faster)
+cp -r /var/lib/mongod/data /backup/mongod-data-$(date +%Y%m%d)
+
+# Must stop mongod first:
+mongod --shutdown
+```
+
+**3. Cloud Snapshots (Atlas):**
+```
+Atlas → Backup → Automated Snapshots
+- Every 6 hours automatic
+- Last 35 days retention
+- One-click restore
+```
+
+**Backup Strategy:**
+
+**RPO (Recovery Point Objective)** - Kitni data loss acceptable?
+- Daily backup = 24 hour RPO (worst case 1 day data loss)
+- Continuous backup = 5 minute RPO
+
+**RTO (Recovery Time Objective)** - Kitna time recovery?
+- Database 100GB = 2-4 hours restore time
+- Replica set failover = 10-30 seconds
+
+**Real-world Plan:**
+```
+1. Automated snapshots (Atlas)
+   - Every 6 hours
+   - 35 days retention
+
+2. Weekly full export
+   - mongodump to S3
+   - Separate storage
+
+3. Read-only secondary
+   - Point-in-time recovery
+   - Standalone testing
+
+4. Geo-redundant backup
+   - Multiple regions
+   - Disaster recovery
+```
+
+**Interview Tip:** Production mein "Test your backups regularly" - kitni bar backups successful take liya lekin restore nahi ho paya? Real scenario mein practice karo.
+
+---
+
+### Q19: Query Optimization Deep Dive - Real Scenarios
+
+**Scenario 1: E-commerce Product Search**
+```javascript
+// Collection
+{
+  _id: ObjectId("..."),
+  name: "iPhone 14",
+  category: "Electronics",
+  price: 79900,
+  rating: 4.5,
+  reviews: [{ user: "Rahul", text: "Good!" }, ...],
+  inStock: true,
+  tags: ["smartphone", "Apple", "5G"]
+}
+
+// Query: Search products by category, price range, sort by rating
+const query = {
+  category: "Electronics",
+  price: { $gte: 30000, $lte: 100000 },
+  inStock: true
+};
+
+// WITHOUT Optimization
+db.products.find(query).sort({ rating: -1 })
+// COLLSCAN - 1M documents scanned, 5000ms
+
+// WITH Optimization
+db.products.createIndex({
+  category: 1,      // E (Equality)
+  rating: -1,       // S (Sort)
+  price: 1          // R (Range)
+})
+
+db.products.find(query, { name: 1, price: 1, rating: 1 })  // Projection
+  .sort({ rating: -1 })
+  .limit(20)
+
+// Result: IXSCAN - 20 documents examined, 5ms (1000x faster!)
+```
+
+**Scenario 2: Complex Aggregation - Top Users by Revenue**
+```javascript
+// Bad aggregation
+db.orders.aggregate([
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "userInfo" } },
+  { $lookup: { from: "products", localField: "productId", foreignField: "_id", as: "productInfo" } },
+  { $unwind: "$userInfo" },
+  { $unwind: "$productInfo" },
+  { $match: { status: "completed" } },  // ❌ Match end mein
+  {
+    $group: {
+      _id: "$userInfo._id",
+      totalRevenue: { $sum: "$productInfo.price" },
+      userName: { $first: "$userInfo.name" }
+    }
+  },
+  { $sort: { totalRevenue: -1 } },
+  { $limit: 10 }
+])
+// 10M documents processed, 2 lookups, slow!
+
+// Good aggregation (optimized)
+db.orders.aggregate([
+  { $match: { status: "completed" } },  // ✅ Match first (data reduce)
+  {
+    $group: {
+      _id: "$userId",
+      totalRevenue: { $sum: "$amount" }
+    }
+  },
+  { $sort: { totalRevenue: -1 } },
+  { $limit: 10 },
+  {
+    $lookup: {  // ✅ Lookup last (sirf 10 users)
+      from: "users",
+      localField: "_id",
+      foreignField: "_id",
+      as: "userInfo"
+    }
+  }
+])
+// 10K documents processed (1000x less), 1 lookup, fast!
+```
+
+**Scenario 3: High-Write Collection (IoT Sensors)**
+```javascript
+// Problem: 1M writes/second, indexes slow down writes
+
+// Bad: Too many indexes
+db.sensors.createIndex({ sensorId: 1 })
+db.sensors.createIndex({ timestamp: 1 })
+db.sensors.createIndex({ temperature: 1 })
+db.sensors.createIndex({ location: 1 })
+// 4 indexes = 4 updates per write operation
+// Write latency high
+
+// Good: Minimal indexes + Bucket pattern
+db.sensors.createIndex({ sensorId: 1, date: 1 })  // Only necessary
+
+// Bucket pattern (reduce documents)
+{
+  _id: ObjectId("..."),
+  sensorId: "sensor123",
+  date: ISODate("2025-01-15"),
+  readings: [
+    { temp: 25.5, timestamp: ISODate("2025-01-15T10:00:00Z") },
+    // ... 3600 readings (1 hour)
+  ]
+}
+
+// 1M readings/sec → 1000 bucket writes/sec (1000x less!)
+```
+
+**Interview Tip:** Real problems aate hain production mein - "We have 10M documents, queries taking 30 seconds" - indexing strategy, aggregation optimization, schema redesign - sab consider karna padta hai.
+
+---
+
+### Q20: MongoDB in Microservices Architecture
+
+**Answer:**
+Har microservice ka apna MongoDB database hona chahiye (database per service pattern).
+
+**Architecture:**
+```
+┌──────────────┐
+│ User Service │─ MongoDB: users collection
+└──────────────┘
+
+┌──────────────┐
+│ Order Service│─ MongoDB: orders collection
+└──────────────┘
+
+┌──────────────┐
+│ Product Svc  │─ MongoDB: products collection
+└──────────────┘
+```
+
+**Service Communication (Event-driven):**
+```javascript
+// User Service: User creation
+const newUser = await usersDb.users.insertOne({
+  _id: ObjectId("user123"),
+  name: "Rahul",
+  email: "rahul@test.com"
+});
+
+// Publish event
+await publishEvent('user.created', {
+  userId: newUser._id,
+  email: newUser.email
+});
+
+// Order Service: Subscribe to event
+subscribeToEvent('user.created', async (event) => {
+  // User create hone pe order service mein record add
+  await ordersDb.users.insertOne({
+    userId: event.userId,
+    email: event.email,
+    orders: []
+  });
+});
+```
+
+**Data Consistency Challenges:**
+
+**Problem: Distributed Transaction**
+```
+User Service: User create ✓
+Order Service: Order create ❌ (failed)
+
+Now inconsistent state!
+```
+
+**Solution 1: Saga Pattern**
+```
+Step 1: User Service - Create user
+Step 2: Order Service - Create order
+Step 3: Payment Service - Process payment
+
+Agar koi step fail → compensating transactions (rollback)
+```
+
+**Solution 2: Event Sourcing**
+```
+har change ek event log mein
+eventual consistency
+```
+
+**Interview Tip:** Microservices architecture mein "eventual consistency" accept karna padta hai, immediate consistency difficult. CAP theorem mention karo - consistency, availability, partition tolerance - sirf 2 guarantee kar sakte ho simultaneously.
+
+---
+
+### Q21: Real-world System Design - Recommendation Engine
+
+**Problem:** Netflix jaisa recommendation engine - millions of users, products, interactions.
+
+**Data Model:**
+```javascript
+// Users Collection
+{
+  _id: ObjectId("user123"),
+  name: "Rahul",
+  email: "rahul@test.com",
+  preferences: ["Action", "Comedy", "Thriller"],
+  totalWatches: 150
+}
+
+// Movies Collection
+{
+  _id: ObjectId("movie456"),
+  title: "Avatar",
+  genre: ["Action", "Sci-Fi"],
+  rating: 4.8,
+  releaseDate: ISODate("2022-12-16"),
+  cast: ["Sam Worthington", "Zoe Saldana"]
+}
+
+// Interactions Collection (3rd normal form)
+{
+  _id: ObjectId("inter789"),
+  userId: ObjectId("user123"),
+  movieId: ObjectId("movie456"),
+  action: "watched",  // watched, rated, clicked
+  rating: 5,
+  timestamp: ISODate("2025-01-15T10:30:00Z"),
+  watchDuration: 9000  // seconds
+}
+
+// Pre-computed Recommendations (Computed Pattern)
+{
+  _id: ObjectId("user123"),
+  recommendations: [
+    { movieId: ObjectId("movie789"), score: 0.95, reason: "similar_genre" },
+    { movieId: ObjectId("movie101"), score: 0.88, reason: "popular_in_genre" }
+  ],
+  lastUpdated: ISODate("2025-01-15T02:00:00Z")
+}
+```
+
+**Recommendation Algorithm (Aggregation):**
+```javascript
+// Step 1: Get user's watch history
+// Step 2: Find similar movies
+// Step 3: Rank by score
+// Step 4: Return top 10
+
+db.interactions.aggregate([
+  // User's recent watches
+  { $match: { userId: ObjectId("user123"), action: "watched" } },
+  { $sort: { timestamp: -1 } },
+  { $limit: 20 },
+
+  // Get movie details
+  {
+    $lookup: {
+      from: "movies",
+      localField: "movieId",
+      foreignField: "_id",
+      as: "movieInfo"
+    }
+  },
+  { $unwind: "$movieInfo" },
+
+  // Extract genres
+  { $unwind: "$movieInfo.genre" },
+
+  // Group by genre
+  {
+    $group: {
+      _id: "$movieInfo.genre",
+      count: { $sum: 1 }
+    }
+  },
+
+  // Now find similar movies in these genres
+  {
+    $lookup: {
+      from: "movies",
+      let: { genre: "$_id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: { $in: ["$$genre", "$genre"] },
+            rating: { $gte: 4.0 }
+          }
+        },
+        { $limit: 50 }
+      ],
+      as: "similarMovies"
+    }
+  }
+])
+```
+
+**Optimization:**
+```javascript
+// Pre-compute recommendations hourly (Bucket Pattern)
+// Cache in Redis for instant lookup
+// Only recalculate if user watches new movie
+```
+
+**Indexes:**
+```javascript
+db.interactions.createIndex({ userId: 1, timestamp: -1 })
+db.interactions.createIndex({ movieId: 1, action: 1 })
+db.movies.createIndex({ genre: 1, rating: -1 })
+db.recommendations.createIndex({ _id: 1 })
+```
+
+**Interview Tip:** Real recommendations complex hain - user preferences, similar items, popularity, freshness sab consider karte ho. Pre-computation se user ko instant results milte hain.
+
+---
+
+## ✅ Checkpoint 3: Advanced Level Complete!
+
+**Key Topics Covered:**
+✅ Replication & Replica Sets (High Availability)
+✅ Sharding & Horizontal Scaling
+✅ Multi-Document Transactions (ACID)
+✅ MongoDB Atlas (Cloud Platform)
+✅ Security (Authentication, Authorization, Encryption)
+✅ Backup & Disaster Recovery
+✅ Query Optimization (Real Scenarios)
+✅ Microservices Architecture
+✅ System Design (Recommendation Engine)
+
+---
+
+---
+
+## 💻 LEVEL 4: CODING CHALLENGES (Interview ke Real Questions)
+
+### Challenge 1: Complex Aggregation - E-commerce Analytics
+
+**Problem Statement:**
+E-commerce platform pe analytics dashboard chahiye. Output:
+- Top 10 categories by revenue
+- Average order value per category
+- Total customers per category
+- Month-wise revenue trend
+
+**Data Schema:**
+```javascript
+// Orders Collection
+{
+  _id: ObjectId("..."),
+  userId: ObjectId("user123"),
+  products: [
+    {
+      productId: ObjectId("prod456"),
+      quantity: 2,
+      price: 500,
+      category: "Electronics"
+    }
+  ],
+  totalAmount: 1000,
+  orderDate: ISODate("2025-01-15T10:30:00Z"),
+  status: "completed"
+}
+```
+
+**Solution:**
+```javascript
+// Top 10 categories by revenue + analytics
+db.orders.aggregate([
+  // Filter: Only completed orders
+  { $match: { status: "completed" } },
+
+  // Unwind products array
+  { $unwind: "$products" },
+
+  // Group by category to get revenue
+  {
+    $group: {
+      _id: "$products.category",
+      totalRevenue: { $sum: { $multiply: ["$products.quantity", "$products.price"] } },
+      totalOrders: { $sum: 1 },
+      avgPrice: { $avg: "$products.price" },
+      avgQuantity: { $avg: "$products.quantity" }
+    }
+  },
+
+  // Calculate average order value
+  {
+    $addFields: {
+      avgOrderValue: { $divide: ["$totalRevenue", "$totalOrders"] }
+    }
+  },
+
+  // Sort by revenue descending
+  { $sort: { totalRevenue: -1 } },
+
+  // Top 10
+  { $limit: 10 },
+
+  // Project final output
+  {
+    $project: {
+      _id: 0,
+      category: "$_id",
+      totalRevenue: { $round: ["$totalRevenue", 2] },
+      totalOrders: 1,
+      avgOrderValue: { $round: ["$avgOrderValue", 2] },
+      avgPrice: { $round: ["$avgPrice", 2] }
+    }
+  }
+])
+
+// Month-wise revenue trend
+db.orders.aggregate([
+  { $match: { status: "completed" } },
+  {
+    $group: {
+      _id: {
+        year: { $year: "$orderDate" },
+        month: { $month: "$orderDate" }
+      },
+      totalRevenue: { $sum: "$totalAmount" },
+      orderCount: { $sum: 1 }
+    }
+  },
+  { $sort: { "_id.year": 1, "_id.month": 1 } },
+  {
+    $project: {
+      _id: 0,
+      month: { $dateToString: { format: "%Y-%m", date: { $dateFromParts: { year: "$_id.year", month: "$_id.month", day: 1 } } } },
+      totalRevenue: 1,
+      orderCount: 1
+    }
+  }
+])
+```
+
+**Interview Tips:**
+- `$unwind` se array flatten hota hai (zaruri multiple times use)
+- `$group` + `$sum` से aggregation
+- `$addFields` se calculated fields
+- `$round` से decimal places
+
+---
+
+### Challenge 2: Find Duplicate Users (Email/Phone)
+
+**Problem:**
+User collection mein duplicate emails ya phones ho sakte hain. Duplicates find karo aur merge strategy decide karo.
+
+**Data:**
+```javascript
+{
+  _id: ObjectId("..."),
+  email: "rahul@test.com",
+  phone: "9876543210",
+  name: "Rahul Kumar",
+  createdAt: ISODate("2025-01-01"),
+  orders: 5
+}
+```
+
+**Solution:**
+```javascript
+// Find duplicate emails
+db.users.aggregate([
+  {
+    $group: {
+      _id: "$email",
+      count: { $sum: 1 },
+      users: { $push: { id: "$_id", name: "$name", createdAt: "$createdAt", orders: "$orders" } }
+    }
+  },
+  // Filter: Only duplicates (count > 1)
+  { $match: { count: { $gt: 1 } } },
+  // Sort by count descending
+  { $sort: { count: -1 } }
+])
+
+// Merge duplicates (keep oldest, delete newer)
+function mergeDuplicateUsers(email) {
+  const duplicates = db.users.find({ email: email }).sort({ createdAt: 1 }).toArray();
+
+  const keepUser = duplicates[0];  // Oldest user
+  const deleteIds = duplicates.slice(1).map(u => u._id);
+
+  // Merge orders from all users to oldest
+  const totalOrders = duplicates.reduce((sum, u) => sum + u.orders, 0);
+
+  // Update oldest user
+  db.users.updateOne(
+    { _id: keepUser._id },
+    { $set: { orders: totalOrders } }
+  );
+
+  // Delete duplicates
+  db.users.deleteMany({ _id: { $in: deleteIds } });
+
+  console.log(`Merged ${duplicates.length} users with email ${email}`);
+}
+
+// Find and merge all duplicates
+const duplicateEmails = db.users.aggregate([
+  { $group: { _id: "$email", count: { $sum: 1 } } },
+  { $match: { count: { $gt: 1 } } }
+]).toArray();
+
+duplicateEmails.forEach(dup => {
+  mergeDuplicateUsers(dup._id);
+});
+```
+
+**Interview Tips:**
+- `$group` से duplicates find
+- `$match` से filter duplicates
+- `$push` से array mein collect
+- Transaction use karo production mein (rollback safety)
+
+---
+
+### Challenge 3: Pagination with Sorting
+
+**Problem:**
+Product listing page pe 20 items per page, sort by price/rating, pagination implement karo.
+
+**Solution:**
+```javascript
+function getPaginatedProducts(page = 1, limit = 20, sortBy = "price", order = 1) {
+  const skip = (page - 1) * limit;
+
+  // Create sort object
+  const sortObj = {};
+  sortObj[sortBy] = order;  // 1 = ascending, -1 = descending
+
+  // Get total count
+  const total = db.products.countDocuments({});
+
+  // Get paginated results
+  const products = db.products
+    .find({})
+    .sort(sortObj)
+    .skip(skip)
+    .limit(limit)
+    .toArray();
+
+  return {
+    data: products,
+    pagination: {
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      totalItems: total,
+      itemsPerPage: limit,
+      hasNextPage: page < Math.ceil(total / limit)
+    }
+  };
+}
+
+// Usage
+const result = getPaginatedProducts(2, 20, "rating", -1);  // Page 2, sort by rating descending
+
+// With filters
+function getPaginatedProductsWithFilter(page = 1, limit = 20, filter = {}, sortBy = "price") {
+  const skip = (page - 1) * limit;
+  const sortObj = { [sortBy]: 1 };
+
+  const total = db.products.countDocuments(filter);
+  const products = db.products
+    .find(filter)
+    .sort(sortObj)
+    .skip(skip)
+    .limit(limit)
+    .toArray();
+
+  return {
+    data: products,
+    pagination: {
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      total,
+      hasNext: page < Math.ceil(total / limit)
+    }
+  };
+}
+
+// Usage with filter
+const electronics = getPaginatedProductsWithFilter(
+  1, 20,
+  { category: "Electronics", price: { $lt: 50000 } },
+  "rating"
+);
+```
+
+**Node.js Implementation:**
+```javascript
+const express = require('express');
+const app = express();
+
+app.get('/products', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const sortBy = req.query.sortBy || "price";
+    const order = req.query.order === "desc" ? -1 : 1;
+
+    const skip = (page - 1) * limit;
+    const sortObj = { [sortBy]: order };
+
+    const total = await db.collection("products").countDocuments({});
+    const products = await db.collection("products")
+      .find({})
+      .sort(sortObj)
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    res.json({
+      data: products,
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(total / limit),
+        total,
+        hasNext: page < Math.ceil(total / limit)
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.listen(3000);
+```
+
+**Interview Tips:**
+- `skip()` aur `limit()` से pagination
+- Always `countDocuments()` total ke liye
+- Sort parameters user-provided safe banao (whitelist)
+- Hasura/GraphQL tools mein cursor-based pagination use karte ho (offset-based se efficient)
+
+---
+
+### Challenge 4: Update Nested Array Elements
+
+**Problem:**
+User ke cart mein product quantity update karna. Specific product ka quantity badhao.
+
+**Data:**
+```javascript
+{
+  _id: ObjectId("user123"),
+  cart: [
+    { productId: "PROD001", name: "Laptop", price: 50000, quantity: 1 },
+    { productId: "PROD002", name: "Mouse", price: 500, quantity: 2 }
+  ]
+}
+```
+
+**Solutions:**
+
+**1. Increment quantity (positional operator)**
+```javascript
+// Product PROD001 ke quantity ko 1 se badhao
+db.users.updateOne(
+  { _id: ObjectId("user123"), "cart.productId": "PROD001" },
+  { $inc: { "cart.$.quantity": 1 } }
+);
+
+// Result: PROD001 quantity = 2
+```
+
+**2. Update multiple fields in array element**
+```javascript
+db.users.updateOne(
+  { _id: ObjectId("user123"), "cart.productId": "PROD001" },
+  {
+    $set: {
+      "cart.$.quantity": 5,
+      "cart.$.updatedAt": new Date()
+    }
+  }
+);
+```
+
+**3. Remove item from cart**
+```javascript
+db.users.updateOne(
+  { _id: ObjectId("user123") },
+  { $pull: { cart: { productId: "PROD001" } } }
+);
+```
+
+**4. Update all cart items (e.g., apply discount)**
+```javascript
+db.users.updateOne(
+  { _id: ObjectId("user123") },
+  {
+    $mul: { "cart.$[].price": 0.9 }  // 10% discount
+  }
+);
+```
+
+**5. Update conditional (e.g., mark items below price)**
+```javascript
+db.users.updateOne(
+  { _id: ObjectId("user123") },
+  {
+    $set: { "cart.$[item].onSale": true }
+  },
+  {
+    arrayFilters: [{ "item.price": { $lt: 1000 } }]
+  }
+);
+```
+
+**Node.js Function:**
+```javascript
+async function updateCartQuantity(userId, productId, newQuantity) {
+  const client = new MongoClient(uri);
+
+  try {
+    const usersCollection = client.db("ecommerce").collection("users");
+
+    if (newQuantity <= 0) {
+      // Remove item
+      await usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $pull: { cart: { productId } } }
+      );
+    } else {
+      // Update quantity
+      await usersCollection.updateOne(
+        { _id: new ObjectId(userId), "cart.productId": productId },
+        { $set: { "cart.$.quantity": newQuantity } }
+      );
+    }
+
+    return { success: true };
+  } finally {
+    await client.close();
+  }
+}
+```
+
+**Interview Tips:**
+- `$` (positional operator) specific array element target karta hai
+- `$[]` (all elements) sab elements update
+- `$[identifier]` (filtered) conditional update
+- `arrayFilters` se complex conditions possible
+
+---
+
+### Challenge 5: Batch Processing - Process Large Dataset
+
+**Problem:**
+10 million users ka data process karna, har user ke stats compute karna. Memory efficient banao.
+
+**Bad Approach (Memory mein load nahi hota):**
+```javascript
+// ❌ WRONG - Sab users memory mein load
+const allUsers = db.users.find({}).toArray();  // 10M docs!
+allUsers.forEach(user => {
+  // Process
+});
+```
+
+**Good Approach (Batch Processing):**
+```javascript
+async function processTenMillionUsers() {
+  const batchSize = 1000;
+  const client = new MongoClient(uri);
+
+  try {
+    const usersCollection = client.db("mydb").collection("users");
+
+    // Get total count
+    const totalCount = await usersCollection.countDocuments({});
+
+    // Process in batches
+    for (let i = 0; i < totalCount; i += batchSize) {
+      console.log(`Processing batch: ${i}/${totalCount}`);
+
+      // Fetch 1000 users
+      const batch = await usersCollection
+        .find({})
+        .skip(i)
+        .limit(batchSize)
+        .toArray();
+
+      // Process each user
+      for (const user of batch) {
+        const stats = calculateStats(user);
+
+        await usersCollection.updateOne(
+          { _id: user._id },
+          { $set: { stats } }
+        );
+      }
+    }
+
+    console.log("Processing complete!");
+  } finally {
+    await client.close();
+  }
+}
+
+function calculateStats(user) {
+  return {
+    totalOrders: user.orders ? user.orders.length : 0,
+    totalSpent: user.orders ? user.orders.reduce((sum, o) => sum + o.amount, 0) : 0,
+    avgOrderValue: user.orders && user.orders.length > 0
+      ? user.orders.reduce((sum, o) => sum + o.amount, 0) / user.orders.length
+      : 0
+  };
+}
+```
+
+**Better: Aggregation Pipeline (Server-side Processing):**
+```javascript
+// Aggregation se directly compute aur update
+db.users.aggregate([
+  {
+    $addFields: {
+      totalOrders: { $size: { $ifNull: ["$orders", []] } },
+      totalSpent: { $sum: { $ifNull: ["$orders.amount", 0] } }
+    }
+  },
+  {
+    $addFields: {
+      avgOrderValue: {
+        $cond: [
+          { $gt: ["$totalOrders", 0] },
+          { $divide: ["$totalSpent", "$totalOrders"] },
+          0
+        ]
+      }
+    }
+  },
+  {
+    $merge: {
+      into: "users",
+      whenMatched: "merge",
+      whenNotMatched: "insert"
+    }
+  }
+])
+```
+
+**Best: Bulk Operations (Fastest):**
+```javascript
+async function processTenMillionUsersBulk() {
+  const batchSize = 10000;
+  const client = new MongoClient(uri);
+
+  try {
+    const usersCollection = client.db("mydb").collection("users");
+    const totalCount = await usersCollection.countDocuments({});
+
+    for (let i = 0; i < totalCount; i += batchSize) {
+      console.log(`Processing batch: ${i}/${totalCount}`);
+
+      const batch = await usersCollection
+        .find({})
+        .skip(i)
+        .limit(batchSize)
+        .toArray();
+
+      // Prepare bulk operations
+      const bulkOps = batch.map(user => ({
+        updateOne: {
+          filter: { _id: user._id },
+          update: {
+            $set: {
+              stats: calculateStats(user),
+              processedAt: new Date()
+            }
+          }
+        }
+      }));
+
+      // Execute bulk
+      if (bulkOps.length > 0) {
+        await usersCollection.bulkWrite(bulkOps);
+      }
+    }
+
+    console.log("Bulk processing complete!");
+  } finally {
+    await client.close();
+  }
+}
+```
+
+**Interview Tips:**
+- Batch processing memory efficient
+- Bulk operations fastest (ek hi database call)
+- Aggregation pipeline server-side processing (less network)
+- Large data mein cursor-based iteration use karo (offset-based skip nahi)
+- Progress logging important (monitoring)
+
+---
+
+### Challenge 6: Real Interview Question - User Session Tracking
+
+**Problem:**
+User login/logout track karna. Active sessions, session duration, last activity.
+
+**Data Model:**
+```javascript
+// Sessions Collection
+{
+  _id: ObjectId("..."),
+  userId: ObjectId("user123"),
+  sessionId: "uuid-xxx",
+  loginTime: ISODate("2025-01-15T10:00:00Z"),
+  logoutTime: ISODate("2025-01-15T18:00:00Z"),
+  duration: 28800,  // seconds
+  deviceInfo: {
+    userAgent: "Chrome/...",
+    ipAddress: "192.168.1.1"
+  },
+  isActive: false,
+  lastActivityTime: ISODate("2025-01-15T17:59:00Z")
+}
+
+// Users Collection (Denormalized)
+{
+  _id: ObjectId("user123"),
+  name: "Rahul",
+  activeSessions: 1,
+  lastLogin: ISODate("2025-01-15T10:00:00Z"),
+  lastLogout: ISODate("2025-01-15T18:00:00Z")
+}
+```
+
+**Solution:**
+
+```javascript
+// User login
+async function userLogin(userId, deviceInfo) {
+  const sessionId = generateUUID();
+  const loginTime = new Date();
+
+  const session = {
+    userId: new ObjectId(userId),
+    sessionId,
+    loginTime,
+    deviceInfo,
+    isActive: true,
+    lastActivityTime: loginTime
+  };
+
+  // Insert session
+  const result = await db.sessions.insertOne(session);
+
+  // Update user stats
+  await db.users.updateOne(
+    { _id: new ObjectId(userId) },
+    {
+      $set: { lastLogin: loginTime },
+      $inc: { activeSessions: 1 }
+    }
+  );
+
+  return sessionId;
+}
+
+// User logout
+async function userLogout(sessionId) {
+  const logoutTime = new Date();
+
+  // Get session
+  const session = await db.sessions.findOne({ sessionId });
+
+  if (!session) throw new Error("Session not found");
+
+  // Calculate duration
+  const duration = (logoutTime - session.loginTime) / 1000;  // seconds
+
+  // Update session
+  await db.sessions.updateOne(
+    { sessionId },
+    {
+      $set: {
+        logoutTime,
+        isActive: false,
+        duration
+      }
+    }
+  );
+
+  // Update user stats
+  await db.users.updateOne(
+    { _id: session.userId },
+    {
+      $set: { lastLogout: logoutTime },
+      $inc: { activeSessions: -1 }
+    }
+  );
+}
+
+// Update last activity (on every API call)
+async function recordActivity(sessionId) {
+  await db.sessions.updateOne(
+    { sessionId },
+    { $set: { lastActivityTime: new Date() } }
+  );
+}
+
+// Get user active sessions
+async function getActiveSessions(userId) {
+  return db.sessions.find({
+    userId: new ObjectId(userId),
+    isActive: true
+  }).toArray();
+}
+
+// Force logout stale sessions (30 minutes inactive)
+async function forceLogoutStaleSessions() {
+  const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
+
+  const staleSessions = await db.sessions.find({
+    isActive: true,
+    lastActivityTime: { $lt: thirtyMinutesAgo }
+  }).toArray();
+
+  for (const session of staleSessions) {
+    await userLogout(session.sessionId);
+  }
+}
+
+// Session analytics
+async function getSessionAnalytics(userId) {
+  return db.sessions.aggregate([
+    { $match: { userId: new ObjectId(userId) } },
+    {
+      $group: {
+        _id: null,
+        totalSessions: { $sum: 1 },
+        avgDuration: { $avg: "$duration" },
+        totalDuration: { $sum: "$duration" },
+        lastSession: { $max: "$logoutTime" }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        totalSessions: 1,
+        avgDuration: { $round: ["$avgDuration", 2] },
+        totalDurationHours: { $divide: ["$totalDuration", 3600] },
+        lastSession: 1
+      }
+    }
+  ]).toArray();
+}
+```
+
+**Indexes:**
+```javascript
+db.sessions.createIndex({ userId: 1, isActive: 1 })
+db.sessions.createIndex({ sessionId: 1 }, { unique: true })
+db.sessions.createIndex({ lastActivityTime: 1 }, { expireAfterSeconds: 86400 })  // Auto-delete after 24h
+db.users.createIndex({ lastLogin: -1 })
+```
+
+**Interview Tips:**
+- Session management critical production feature
+- TTL index से auto-cleanup
+- Denormalization (activeSessions) fast queries ke liye
+- Activity tracking mein batch updates use karo
+- Concurrent sessions handle karo
+
+---
+
+### Challenge 7: Search Implementation
+
+**Problem:**
+Product search - user "laptop" search kare to relevant results.
+
+**Solution 1: Text Index (Full-text Search)**
+```javascript
+// Create text index
+db.products.createIndex({ name: "text", description: "text", tags: "text" })
+
+// Search
+db.products.find({
+  $text: { $search: "laptop gaming" }
+}, {
+  score: { $meta: "textScore" }
+}).sort({
+  score: { $meta: "textScore" }
+}).limit(20)
+```
+
+**Solution 2: Regex Search (Simple but Slow)**
+```javascript
+db.products.find({
+  name: { $regex: "laptop", $options: "i" }  // case-insensitive
+}).limit(20)
+```
+
+**Solution 3: Autocomplete with Prefix**
+```javascript
+// Data model
+{
+  _id: ObjectId("..."),
+  name: "MacBook Pro",
+  nameTokens: ["m", "ma", "mac", "macb", "macbo", "macboo", "macbook", ...]
+}
+
+// Create index
+db.products.createIndex({ nameTokens: 1 })
+
+// Search for prefix "mac"
+db.products.find({ nameTokens: "mac" }).limit(20)
+```
+
+**Solution 4: Aggregation Search (Most Flexible)**
+```javascript
+db.products.aggregate([
+  {
+    $match: {
+      $or: [
+        { name: { $regex: "laptop", $options: "i" } },
+        { tags: { $in: ["laptop"] } },
+        { category: "Electronics" }
+      ]
+    }
+  },
+  {
+    $addFields: {
+      relevance: {
+        $cond: [
+          { $regexMatch: { input: "$name", regex: "laptop" } },
+          2,  // Exact match in name
+          1   // Tag/category match
+        ]
+      }
+    }
+  },
+  { $sort: { relevance: -1, rating: -1 } },
+  { $limit: 20 }
+])
+```
+
+---
+
+### Challenge 8: Tricky Question - Circular References
+
+**Problem:**
+User A follow User B, User B follow User C, User C follow User A (circular). Find cycles.
+
+**Solution:**
+```javascript
+async function findFollowCycles() {
+  // Get follow relationships
+  const users = await db.users.find({}).toArray();
+
+  const graph = {};
+  users.forEach(user => {
+    graph[user._id.toString()] = user.following || [];
+  });
+
+  function findCycleDFS(userId, visited, recStack) {
+    visited.add(userId);
+    recStack.add(userId);
+
+    const following = graph[userId] || [];
+
+    for (const followingId of following) {
+      if (!visited.has(followingId)) {
+        if (findCycleDFS(followingId, visited, recStack)) {
+          return true;
+        }
+      } else if (recStack.has(followingId)) {
+        // Cycle found
+        console.log(`Cycle detected: ${userId} -> ... -> ${followingId}`);
+        return true;
+      }
+    }
+
+    recStack.delete(userId);
+    return false;
+  }
+
+  const visited = new Set();
+  const cycles = [];
+
+  for (const userId of Object.keys(graph)) {
+    if (!visited.has(userId)) {
+      const recStack = new Set();
+      if (findCycleDFS(userId, visited, recStack)) {
+        cycles.push(userId);
+      }
+    }
+  }
+
+  return cycles;
+}
+```
+
+---
+
+## ✅ Checkpoint 4: Coding Challenges Complete!
+
+**Practiced:**
+✅ Complex aggregation queries
+✅ Duplicates finding & merging
+✅ Pagination with sorting
+✅ Nested array updates
+✅ Batch processing (large datasets)
+✅ Session management
+✅ Search implementation
+✅ Circular reference detection
+
+---
+
+## 🎯 Ready for LEVEL 5: TRICKY INTERVIEW QUESTIONS?
 
 **Next Topics:**
-- Replication & High Availability
-- Sharding & Horizontal Scaling
-- Transactions (ACID in MongoDB)
-- MongoDB Atlas & Cloud Features
-- Security (Authentication, Authorization, Encryption)
-- Backup & Disaster Recovery
-- Real-world System Design
+- Questions interviewers commonly ask
+- Edge cases & corner scenarios
+- Performance problem diagnosis
+- Architectural decision questions
+- Confidence-building answers
 
-**Type "next" to continue to Advanced Level!**
+**Type "next" for Tricky Questions!**
