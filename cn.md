@@ -169,6 +169,12 @@ Networks are classified by their **size and geographic area** they cover.
 - WiFi = LAN technology
 - MAN is often managed by ISPs or city governments
 
+
+An ISP (Internet Service Provider) is a company that provides you access to the internet.
+Jo company tumhe internet chalane ka connection deti hai, usse ISP bolte hain.
+
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/2e10ea70-ae33-4b53-8c7c-3f69e9545271" />
+
 ---
 
 ## 🎤 Interview Questions — Topic 2
