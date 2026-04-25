@@ -351,6 +351,9 @@ Network A (192.168.1.x) ──── Router ──── Network B (10.0.0.x)
 
 > **Answer:** This is a LAN. You would use a Switch to connect all 100 computers, a Router to connect the LAN to the Internet, and the printer can be connected to the Switch. A Firewall would be added for security.
 
+![Uploading image.png…]()
+
+
 **C2.** What's wrong with using a Hub instead of a Switch in the college lab scenario?
 
 > **Answer:** With a Hub, when Computer A sends a print job, ALL 100 computers receive that data unnecessarily, creating congestion, privacy issues, and collisions. A Switch sends the data only to the printer — efficient and private.
