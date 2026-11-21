@@ -1,0 +1,2550 @@
+# 🐍 Python Complete Guide — Basic se Advanced (Hinglish)
+
+> Is guide me har concept ke saath: **Kya hai**, **Kyun use karte hain**, **Kab use karte hain**, **Example**, aur end me **Tricks, Interview Questions, Practice Questions** diye gaye hain.
+
+---
+
+## 📑 Table of Contents
+
+1. Python Introduction
+2. Variables & Data Types
+3. Operators
+4. Input / Output & Type Casting
+5. Strings (saare methods)
+6. List (saare methods)
+7. Tuple
+8. Set (saare methods)
+9. Dictionary (saare methods)
+10. Conditional Statements
+11. Loops
+12. Functions
+13. Lambda, map, filter, reduce
+14. Scope, Closures, Recursion
+15. Comprehensions
+16. Built-in Functions (saare important)
+17. File Handling
+18. Exception Handling
+19. Modules & Packages
+20. OOP (Classes, Inheritance, Polymorphism...)
+21. Magic / Dunder Methods
+22. Iterators & Generators
+23. Decorators
+24. Context Managers
+25. Important Standard Libraries (collections, itertools, functools, datetime, re, json, os)
+26. Dataclasses & Type Hints
+27. Multithreading, Multiprocessing, Asyncio
+28. Virtual Env, pip, Testing
+29. Python Tricks
+30. Interview Questions & Answers
+31. Practice Questions
+32. Real-World Mini Projects
+33. NumPy
+34. Pandas
+
+---
+
+# ✅ Progress Tracker (Apna Progress Yahan Track Karo)
+
+> **Kaise use karein?** Jab topic complete ho jaye, `[ ]` ko `[x]` kar do. Editor me ya GitHub/Obsidian/VS Code me checkbox clickable ban jata hai.
+
+**Start date:** ____/____/______  |  **Target end date:** ____/____/______
+
+## 📊 Overall Progress
+| Level | Topics | Done | Status |
+|-------|--------|------|--------|
+| 🟢 Basic (1-11) | 11 | 0/11 | ⬜ Not started |
+| 🟡 Intermediate (12-19) | 8 | 0/8 | ⬜ Not started |
+| 🔴 Advanced (20-28) | 9 | 0/9 | ⬜ Not started |
+| 🧠 Interview & Practice (29-32) | 4 | 0/4 | ⬜ Not started |
+| 📈 Data Science (33-34) | 2 | 0/2 | ⬜ Not started |
+
+> Status ke liye: ⬜ Not started → 🟨 In progress → ✅ Done
+
+## 🟢 Basic
+- [ ] 1. Introduction
+- [ ] 2. Variables & Data Types
+- [ ] 3. Operators
+- [ ] 4. Input/Output & Type Casting
+- [ ] 5. Strings + methods
+- [ ] 6. List + methods
+- [ ] 7. Tuple
+- [ ] 8. Set + methods
+- [ ] 9. Dictionary + methods
+- [ ] 10. Conditional Statements
+- [ ] 11. Loops
+
+## 🟡 Intermediate
+- [ ] 12. Functions
+- [ ] 13. Lambda, map, filter, reduce
+- [ ] 14. Scope, Closures, Recursion
+- [ ] 15. Comprehensions
+- [ ] 16. Built-in Functions
+- [ ] 17. File Handling
+- [ ] 18. Exception Handling
+- [ ] 19. Modules & Packages
+
+## 🔴 Advanced
+- [ ] 20. OOP
+- [ ] 21. Magic/Dunder Methods
+- [ ] 22. Iterators & Generators
+- [ ] 23. Decorators
+- [ ] 24. Context Managers
+- [ ] 25. Standard Libraries
+- [ ] 26. Dataclasses & Type Hints
+- [ ] 27. Threading / Multiprocessing / Asyncio
+- [ ] 28. venv, pip, Testing
+
+## 🧠 Interview & Practice
+- [ ] 29. Python Tricks padhe
+- [ ] 30. Interview Q&A (50) padhe
+- [ ] 31. Practice Questions solve kiye
+- [ ] 32. Mini Projects banaye
+
+## 📈 Data Science
+- [ ] 33. NumPy
+- [ ] 34. Pandas
+
+## 🎯 Practice Question Tracker
+Level 1 (Q1-15): `[ ]` 0/15 &nbsp;|&nbsp; Level 2 (Q16-35): `[ ]` 0/20 &nbsp;|&nbsp; Level 3 (Q36-55): `[ ]` 0/20
+
+| Q No. | Solved? | Date | Difficulty feel (Easy/Med/Hard) | Revise karna hai? |
+|-------|---------|------|-------------------------------|-------------------|
+| 1 | [ ] | | | |
+| 2 | [ ] | | | |
+| 3 | [ ] | | | |
+| 4 | [ ] | | | |
+| 5 | [ ] | | | |
+| 6 | [ ] | | | |
+| 7 | [ ] | | | |
+| 8 | [ ] | | | |
+| 9 | [ ] | | | |
+| 10 | [ ] | | | |
+| ... | | | *(aur rows khud add karo)* | |
+
+## 🗓️ Daily Study Log
+| Date | Topic padha | Time (min) | Practice kiya | Samajh (1-5) | Notes / Doubts |
+|------|-------------|-----------|---------------|--------------|----------------|
+| | | | | | |
+| | | | | | |
+| | | | | | |
+
+## 🔁 Revision Tracker (Spaced Repetition)
+> Topic padhne ke baad **1 din, 3 din, 7 din, 30 din** baad revise karo.
+
+| Topic | Padha (date) | Rev 1 (1 din) | Rev 2 (3 din) | Rev 3 (7 din) | Rev 4 (30 din) |
+|-------|--------------|---------------|---------------|---------------|----------------|
+| Strings | | [ ] | [ ] | [ ] | [ ] |
+| List/Dict | | [ ] | [ ] | [ ] | [ ] |
+| OOP | | [ ] | [ ] | [ ] | [ ] |
+| Decorators | | [ ] | [ ] | [ ] | [ ] |
+| NumPy | | [ ] | [ ] | [ ] | [ ] |
+| Pandas | | [ ] | [ ] | [ ] | [ ] |
+
+## ❓ Weak Topics / Doubts List
+- [ ] (yahan likho jo samajh nahi aaya)
+- [ ] 
+- [ ] 
+
+## 🏆 Milestones
+- [ ] 🥉 Basics complete (Topic 1-11)
+- [ ] 🥈 Intermediate complete (12-19) + 20 practice questions
+- [ ] 🥇 Advanced complete (20-28) + 1 mini project
+- [ ] 🏅 Data Science basics (33-34) + 1 real dataset analysis
+- [ ] 🎓 50 interview questions revise + 55 practice questions solve
+
+---
+
+# 1. Python Introduction
+
+**Kya hai?** Python ek high-level, interpreted, dynamically typed, general-purpose programming language hai. Guido van Rossum ne 1991 me banayi.
+
+**Kyun use karte hain?**
+- Syntax simple aur English jaisa hai → seekhna easy.
+- Libraries bahut: Data Science (pandas, numpy), AI/ML (tensorflow, pytorch), Web (Django, Flask, FastAPI), Automation, Scripting.
+
+**Kab use karte hain?**
+- Automation, web backend, data analysis, ML/AI, scripting, testing.
+- Jahan raw speed critical ho (game engine, OS) wahan C/C++/Rust better hain.
+
+```python
+print("Hello, World!")
+```
+
+**Features:** Interpreted, Dynamically typed, Object-oriented, Large standard library, Cross-platform, Garbage collected.
+
+**Indentation:** Python me `{}` nahi hote, **indentation (4 spaces)** se block banta hai.
+
+```python
+if True:
+    print("Yeh andar hai")   # 4 spaces
+print("Yeh bahar hai")
+```
+
+**Comments:**
+```python
+# single line comment
+"""
+multi-line comment / docstring
+"""
+```
+
+---
+
+# 2. Variables & Data Types
+
+## Variable
+**Kya hai?** Data store karne ka naam wala box.
+**Kyun?** Value ko baar-baar use karne ke liye.
+**Kab?** Jab bhi data ko store/reuse/modify karna ho.
+
+```python
+name = "Rahul"
+age = 25
+price = 99.5
+is_student = True
+a, b, c = 1, 2, 3          # multiple assignment
+x = y = 10                 # same value
+a, b = b, a                # swap (Python ka trick)
+```
+
+**Naming rules:**
+- Letter ya `_` se start ho, number se nahi.
+- Case-sensitive (`age` ≠ `Age`).
+- Keywords (`if`, `for`) use nahi kar sakte.
+- Convention: `snake_case` (variables/functions), `PascalCase` (classes), `UPPER_CASE` (constants).
+
+## Data Types
+
+| Type | Example | Mutable? |
+|------|---------|----------|
+| int | `10` | No |
+| float | `3.14` | No |
+| complex | `2+3j` | No |
+| bool | `True/False` | No |
+| str | `"hello"` | No |
+| list | `[1,2,3]` | **Yes** |
+| tuple | `(1,2,3)` | No |
+| set | `{1,2,3}` | **Yes** |
+| frozenset | `frozenset({1,2})` | No |
+| dict | `{"a":1}` | **Yes** |
+| NoneType | `None` | No |
+| bytes / bytearray | `b"abc"` | No / Yes |
+| range | `range(5)` | No |
+
+```python
+print(type(10))        # <class 'int'>
+print(type("hi"))      # <class 'str'>
+print(isinstance(10, int))   # True
+```
+
+**Mutable vs Immutable (Interview favourite!)**
+- **Mutable**: Create hone ke baad change ho sakta hai (list, dict, set).
+- **Immutable**: Change nahi hota; change karoge to naya object banta hai (int, str, tuple).
+
+```python
+s = "hello"
+# s[0] = "H"   # ❌ TypeError
+l = [1, 2, 3]
+l[0] = 100      # ✅ works
+```
+
+**`id()` aur `is` vs `==`:**
+```python
+a = [1,2]
+b = [1,2]
+print(a == b)   # True  (value same)
+print(a is b)   # False (alag objects)
+print(id(a), id(b))
+```
+
+**None:** "Kuch nahi" ka matlab. Function jab kuch return na kare to `None` deta hai.
+
+---
+
+# 3. Operators
+
+## Arithmetic
+| Op | Naam | Example | Result |
+|----|------|---------|--------|
+| `+` | Addition | `5+2` | 7 |
+| `-` | Subtraction | `5-2` | 3 |
+| `*` | Multiply | `5*2` | 10 |
+| `/` | Division (float) | `5/2` | 2.5 |
+| `//` | Floor division | `5//2` | 2 |
+| `%` | Modulus | `5%2` | 1 |
+| `**` | Power | `5**2` | 25 |
+
+**Kab use?** `%` → even/odd check, `//` → pages calculate, `**` → power/square.
+
+## Comparison
+`==, !=, >, <, >=, <=` → result `True/False`.
+
+## Logical
+`and, or, not`
+```python
+print(5 > 3 and 2 > 1)   # True
+print(not True)          # False
+```
+**Short-circuit:** `and` me pehla False mila to aage check nahi hota; `or` me pehla True mila to ruk jata hai.
+
+## Assignment
+`=, +=, -=, *=, /=, //=, %=, **=, &=, |=, ^=, >>=, <<=`
+**Walrus operator `:=` (Python 3.8+)**
+```python
+if (n := len([1,2,3])) > 2:
+    print(f"Length {n} hai")
+```
+
+## Bitwise
+`& | ^ ~ << >>`
+```python
+print(5 & 3)   # 1
+print(5 | 3)   # 7
+print(5 ^ 3)   # 6
+print(5 << 1)  # 10 (x2)
+print(5 >> 1)  # 2  (/2)
+```
+
+## Membership & Identity
+```python
+print(3 in [1,2,3])        # True
+print(3 not in [1,2,3])    # False
+a = None
+print(a is None)           # True
+```
+
+## Operator Precedence
+`()` > `**` > `*, /, //, %` > `+, -` > comparison > `not` > `and` > `or`
+
+---
+
+# 4. Input / Output & Type Casting
+
+```python
+name = input("Naam batao: ")     # hamesha string return karta hai
+age = int(input("Age: "))
+print("Hello", name, "age", age)
+print("A", "B", sep="-", end="!\n")   # A-B!
+```
+
+**f-string (best way):**
+```python
+name, pi = "Amit", 3.14159
+print(f"Name: {name}, Pi: {pi:.2f}")     # 2 decimal
+print(f"{1000000:,}")                    # 1,000,000
+print(f"{name!r}")                       # repr
+print(f"{5:05d}")                        # 00005
+print(f"{name:>10}|{name:<10}|{name:^10}")  # align
+print(f"{x=}") if (x:=5) else None       # x=5 (debug, 3.8+)
+```
+
+**Type Casting:**
+```python
+int("10"), float("3.5"), str(10), bool(0), list("abc"), tuple([1,2]), set([1,1,2])
+```
+**Falsy values:** `0, 0.0, "", [], (), {}, set(), None, False`. Baaki sab Truthy.
+
+---
+
+# 5. Strings
+
+**Kya hai?** Characters ka sequence, immutable.
+**Kyun?** Text data handle karne ke liye (name, email, messages).
+
+```python
+s = "Hello Python"
+print(s[0], s[-1])       # H n
+print(s[0:5])            # Hello  (slicing)
+print(s[::-1])           # nohtyP olleH (reverse)
+print(s[::2])            # step 2
+print(len(s))
+print("Hi " * 3)         # repetition
+print("a" + "b")         # concatenation
+```
+
+## 🔥 String Methods (Saare Important)
+
+| Method | Kaam | Example | Output |
+|--------|------|---------|--------|
+| `upper()` | Sab capital | `"abc".upper()` | `ABC` |
+| `lower()` | Sab small | `"ABC".lower()` | `abc` |
+| `title()` | Har word ka pehla capital | `"hi there".title()` | `Hi There` |
+| `capitalize()` | Sirf pehla char capital | `"hi there".capitalize()` | `Hi there` |
+| `swapcase()` | Case ulta | `"aB".swapcase()` | `Ab` |
+| `casefold()` | Aggressive lowercase (comparison) | `"ß".casefold()` | `ss` |
+| `strip()` | Dono side whitespace hatao | `" hi ".strip()` | `hi` |
+| `lstrip()` | Left side | `" hi".lstrip()` | `hi` |
+| `rstrip()` | Right side | `"hi ".rstrip()` | `hi` |
+| `split()` | String → list | `"a b c".split()` | `['a','b','c']` |
+| `rsplit(sep,n)` | Right se split | `"a,b,c".rsplit(",",1)` | `['a,b','c']` |
+| `splitlines()` | Lines me todo | `"a\nb".splitlines()` | `['a','b']` |
+| `join()` | List → string | `"-".join(["a","b"])` | `a-b` |
+| `replace(old,new,count)` | Replace | `"aaa".replace("a","b",2)` | `bba` |
+| `find(sub)` | Index (nahi mila → -1) | `"hello".find("l")` | `2` |
+| `rfind(sub)` | Right se find | `"hello".rfind("l")` | `3` |
+| `index(sub)` | Index (nahi mila → ValueError) | `"hello".index("e")` | `1` |
+| `rindex(sub)` | Right se index | | |
+| `count(sub)` | Kitni baar aaya | `"banana".count("a")` | `3` |
+| `startswith()` | Shuru check | `"hello".startswith("he")` | `True` |
+| `endswith()` | End check | `"a.py".endswith(".py")` | `True` |
+| `isalpha()` | Sirf letters? | `"abc".isalpha()` | `True` |
+| `isdigit()` | Sirf digits? | `"123".isdigit()` | `True` |
+| `isnumeric()` | Numeric chars (½ etc.) | | |
+| `isdecimal()` | Decimal digits | | |
+| `isalnum()` | Letters+digits | `"a1".isalnum()` | `True` |
+| `isspace()` | Sirf spaces | `" ".isspace()` | `True` |
+| `isupper()` | Sab capital? | | |
+| `islower()` | Sab small? | | |
+| `istitle()` | Title case? | | |
+| `isidentifier()` | Valid variable name? | `"abc1".isidentifier()` | `True` |
+| `isprintable()` | Printable chars? | | |
+| `isascii()` | ASCII only? | | |
+| `center(w, fill)` | Center align | `"hi".center(6,"*")` | `**hi**` |
+| `ljust(w, fill)` | Left align | `"hi".ljust(5,".")` | `hi...` |
+| `rjust(w, fill)` | Right align | `"hi".rjust(5,".")` | `...hi` |
+| `zfill(w)` | Zero padding | `"42".zfill(5)` | `00042` |
+| `expandtabs(n)` | Tab → spaces | | |
+| `partition(sep)` | 3 parts (before, sep, after) | `"a=b".partition("=")` | `('a','=','b')` |
+| `rpartition(sep)` | Right se partition | | |
+| `encode()` | str → bytes | `"hi".encode()` | `b'hi'` |
+| `format()` | Formatting | `"{} {}".format("a","b")` | `a b` |
+| `format_map()` | dict se format | | |
+| `maketrans()` / `translate()` | Char mapping | | |
+| `removeprefix()` (3.9+) | Prefix hatao | `"Mr.Ram".removeprefix("Mr.")` | `Ram` |
+| `removesuffix()` (3.9+) | Suffix hatao | `"a.py".removesuffix(".py")` | `a` |
+
+```python
+# translate example
+table = str.maketrans("abc", "123")
+print("aabbcc".translate(table))   # 112233
+```
+
+**Real Example — Email validate (basic):**
+```python
+email = "  User@Gmail.com "
+email = email.strip().lower()
+if "@" in email and email.endswith(".com"):
+    print("Valid:", email)
+```
+
+**Palindrome check:**
+```python
+def is_palindrome(s):
+    s = s.lower().replace(" ", "")
+    return s == s[::-1]
+```
+
+---
+
+# 6. List
+
+**Kya hai?** Ordered, mutable, duplicate allowed collection.
+**Kyun?** Multiple items ek jagah store karne ke liye.
+**Kab?** Jab order important ho aur items add/remove/change karne ho (cart, todo list).
+
+```python
+nums = [10, 20, 30, 40]
+print(nums[0], nums[-1], nums[1:3])
+nums[0] = 99
+```
+
+## 🔥 List Methods (Saare)
+
+| Method | Kaam | Example |
+|--------|------|---------|
+| `append(x)` | End me add | `l.append(5)` |
+| `extend(iter)` | Multiple items add | `l.extend([6,7])` |
+| `insert(i, x)` | Index pe add | `l.insert(1, 100)` |
+| `remove(x)` | Pehla x hatao (nahi mila → ValueError) | `l.remove(5)` |
+| `pop(i)` | Index se hatao + return (default last) | `l.pop()` |
+| `clear()` | Sab hatao | `l.clear()` |
+| `index(x)` | Pehla index | `l.index(20)` |
+| `count(x)` | Kitni baar | `l.count(10)` |
+| `sort()` | In-place sort | `l.sort(reverse=True)` |
+| `reverse()` | In-place ulta | `l.reverse()` |
+| `copy()` | Shallow copy | `m = l.copy()` |
+
+```python
+l = [3, 1, 2]
+l.append(4)          # [3,1,2,4]
+l.extend([5,6])      # [3,1,2,4,5,6]
+l.insert(0, 0)       # [0,3,1,2,4,5,6]
+l.remove(3)          # [0,1,2,4,5,6]
+x = l.pop()          # x=6
+l.sort()             # ascending
+l.sort(key=lambda v: -v)   # descending custom
+print(sorted(l))     # naya list return, original same
+```
+
+**`sort()` vs `sorted()`**: `sort()` original change karta hai (returns None), `sorted()` naya list deta hai (kisi bhi iterable pe chalta hai).
+
+**`append` vs `extend`:**
+```python
+a = [1,2]; a.append([3,4]);  print(a)   # [1, 2, [3, 4]]
+b = [1,2]; b.extend([3,4]);  print(b)   # [1, 2, 3, 4]
+```
+
+**Shallow vs Deep Copy (Interview!):**
+```python
+import copy
+a = [[1,2],[3,4]]
+b = a.copy()            # shallow
+b[0][0] = 99
+print(a)                # [[99,2],[3,4]]  ← a bhi change!
+c = copy.deepcopy(a)    # deep → fully independent
+```
+
+**Other operations:**
+```python
+l = [1,2,3,4,5]
+print(l[::-1], l[::2])
+print(len(l), sum(l), min(l), max(l))
+print(3 in l)
+l2 = l + [6]            # concatenate
+del l[0]                # delete by index
+```
+
+**Nested list / 2D:**
+```python
+matrix = [[1,2,3],[4,5,6]]
+print(matrix[1][2])     # 6
+```
+
+**Real Example — Shopping Cart:**
+```python
+cart = []
+cart.append({"item": "Pen", "price": 10})
+cart.append({"item": "Book", "price": 200})
+total = sum(i["price"] for i in cart)
+print("Total:", total)
+```
+
+---
+
+# 7. Tuple
+
+**Kya hai?** Ordered, **immutable** collection.
+**Kyun?** Data ko protect karna, dict ki key banana, fast (list se thoda), function se multiple values return.
+**Kab?** Fixed data: coordinates, RGB color, DB rows, days of week.
+
+```python
+t = (1, 2, 3)
+single = (5,)          # comma zaroori!
+print(t[0], t[-1])
+a, b, c = t            # unpacking
+first, *rest = (1,2,3,4)   # first=1, rest=[2,3,4]
+```
+
+**Methods (sirf 2):**
+- `count(x)` — kitni baar aaya
+- `index(x)` — pehla index
+
+```python
+t = (1,2,2,3)
+print(t.count(2))   # 2
+print(t.index(3))   # 3
+```
+
+**Trick:** Tuple me mutable item ho to wo change ho sakta hai:
+```python
+t = (1, [2,3])
+t[1].append(4)   # ✅ (1,[2,3,4])
+```
+
+**Named Tuple:**
+```python
+from collections import namedtuple
+Point = namedtuple("Point", ["x", "y"])
+p = Point(1, 2)
+print(p.x, p.y)
+```
+
+---
+
+# 8. Set
+
+**Kya hai?** Unordered, unique elements, mutable collection (hash-based).
+**Kyun?** Duplicates hatane, fast membership check O(1), math set operations.
+**Kab?** Unique items chahiye, common/different items find karne ho.
+
+```python
+s = {1, 2, 3, 3}     # {1,2,3}
+empty = set()        # {} dict banata hai!
+```
+
+## 🔥 Set Methods
+
+| Method | Kaam |
+|--------|------|
+| `add(x)` | Ek element add |
+| `update(iter)` | Multiple add |
+| `remove(x)` | Hatao (nahi mila → KeyError) |
+| `discard(x)` | Hatao (nahi mila → no error) |
+| `pop()` | Random element hatao |
+| `clear()` | Sab hatao |
+| `copy()` | Copy |
+| `union(b)` / `a \| b` | Dono ke sab |
+| `intersection(b)` / `a & b` | Common |
+| `difference(b)` / `a - b` | a me jo b me nahi |
+| `symmetric_difference(b)` / `a ^ b` | Jo common nahi |
+| `issubset(b)` / `a <= b` | a, b ka subset? |
+| `issuperset(b)` / `a >= b` | a, b ka superset? |
+| `isdisjoint(b)` | Koi common nahi? |
+| `intersection_update`, `difference_update`, `symmetric_difference_update` | In-place versions |
+
+```python
+a = {1,2,3}; b = {3,4,5}
+print(a | b)   # {1,2,3,4,5}
+print(a & b)   # {3}
+print(a - b)   # {1,2}
+print(a ^ b)   # {1,2,4,5}
+```
+
+**Real Example — Duplicate hatao (order maintain):**
+```python
+nums = [1,2,2,3,1]
+print(list(set(nums)))          # order guaranteed nahi
+print(list(dict.fromkeys(nums)))  # order maintain ✅
+```
+
+---
+
+# 9. Dictionary
+
+**Kya hai?** Key-value pairs. Python 3.7+ me insertion order maintain hota hai. Keys unique & immutable honi chahiye.
+**Kyun?** Fast lookup O(1), structured data (JSON jaisa).
+**Kab?** Jab data ko name/ID se access karna ho (user profile, config, counting).
+
+```python
+user = {"name": "Ravi", "age": 22}
+print(user["name"])
+user["city"] = "Delhi"     # add/update
+del user["age"]
+```
+
+## 🔥 Dictionary Methods
+
+| Method | Kaam |
+|--------|------|
+| `get(k, default)` | Safe access (error nahi) |
+| `keys()` | Saari keys |
+| `values()` | Saari values |
+| `items()` | (key, value) pairs |
+| `update(other)` | Merge/update |
+| `pop(k, default)` | Key hatao + value return |
+| `popitem()` | Last item hatao (LIFO) |
+| `setdefault(k, d)` | Key nahi hai to set karo, value return |
+| `clear()` | Sab hatao |
+| `copy()` | Shallow copy |
+| `fromkeys(keys, val)` | Keys se dict banao |
+
+```python
+d = {"a": 1, "b": 2}
+print(d.get("z", 0))               # 0
+d.update({"c": 3})
+print(list(d.items()))
+d.setdefault("e", 5)
+print(d.pop("a"))
+new = dict.fromkeys(["x","y"], 0)  # {'x':0,'y':0}
+
+# Merge (3.9+)
+d1 = {"a":1}; d2 = {"b":2}
+print(d1 | d2)         # {'a':1,'b':2}
+print({**d1, **d2})    # purane versions me bhi
+```
+
+**Loop:**
+```python
+for k, v in d.items():
+    print(k, v)
+```
+
+**Dict Comprehension:**
+```python
+sq = {x: x**2 for x in range(5)}
+```
+
+**Word count (real example):**
+```python
+text = "apple banana apple cherry banana apple"
+count = {}
+for w in text.split():
+    count[w] = count.get(w, 0) + 1
+print(count)
+# Better: collections.Counter
+```
+
+**Nested dict:**
+```python
+students = {
+    1: {"name": "A", "marks": 90},
+    2: {"name": "B", "marks": 80},
+}
+print(students[1]["marks"])
+```
+
+---
+
+# 10. Conditional Statements
+
+**Kya hai?** Condition ke basis pe decision lena.
+**Kab?** Login check, grade calculate, validation.
+
+```python
+marks = 75
+if marks >= 90:
+    print("A")
+elif marks >= 70:
+    print("B")
+else:
+    print("C")
+```
+
+**Ternary (one-liner):**
+```python
+status = "Pass" if marks >= 33 else "Fail"
+```
+
+**match-case (3.10+, switch jaisa):**
+```python
+def http(code):
+    match code:
+        case 200: return "OK"
+        case 404: return "Not Found"
+        case 500 | 503: return "Server Error"
+        case _: return "Unknown"
+```
+
+---
+
+# 11. Loops
+
+## for loop
+**Kab?** Jab iterable (list, string, range) pe chalna ho / count pata ho.
+```python
+for i in range(5):          # 0..4
+    print(i)
+for i in range(1, 10, 2):   # 1,3,5,7,9
+    print(i)
+for ch in "Hi": print(ch)
+for i, v in enumerate(["a","b"], start=1):
+    print(i, v)
+for a, b in zip([1,2],["x","y"]):
+    print(a, b)
+```
+
+## while loop
+**Kab?** Jab tak condition true ho (count pata nahi).
+```python
+n = 5
+while n > 0:
+    print(n)
+    n -= 1
+```
+
+## break, continue, pass, else
+```python
+for i in range(10):
+    if i == 3: continue    # skip
+    if i == 6: break       # stop
+    print(i)
+
+for i in range(3):
+    pass                   # placeholder
+
+for i in range(3):
+    print(i)
+else:
+    print("Loop normally khatam hua (break nahi hua)")
+```
+**for-else use:** Prime number check, search jab nahi mile.
+```python
+n = 7
+for i in range(2, n):
+    if n % i == 0:
+        print("Not prime"); break
+else:
+    print("Prime")
+```
+
+## Pattern Example
+```python
+for i in range(1, 6):
+    print("*" * i)
+```
+
+---
+
+# 12. Functions
+
+**Kya hai?** Reusable code ka block.
+**Kyun?** DRY (Don't Repeat Yourself), code organized, testable.
+**Kab?** Jab same kaam baar-baar karna ho.
+
+```python
+def add(a, b):
+    """Do numbers add karta hai."""   # docstring
+    return a + b
+
+print(add(2, 3))
+print(add.__doc__)
+```
+
+## Argument Types
+```python
+# 1. Positional
+def greet(name, msg): ...
+# 2. Keyword
+greet(msg="Hi", name="Ram")
+# 3. Default
+def power(x, n=2): return x**n
+# 4. *args  (variable positional → tuple)
+def total(*args): return sum(args)
+total(1,2,3,4)
+# 5. **kwargs (variable keyword → dict)
+def info(**kwargs):
+    for k, v in kwargs.items(): print(k, v)
+info(name="A", age=5)
+# 6. Positional-only (/) aur keyword-only (*)
+def f(a, b, /, c, *, d): ...
+f(1, 2, 3, d=4)
+```
+
+## Return multiple values
+```python
+def stats(l): return min(l), max(l), sum(l)
+lo, hi, tot = stats([1,2,3])
+```
+
+## ⚠️ Mutable Default Argument (Famous Trap!)
+```python
+def add(x, lst=[]):      # ❌ list sirf ek baar banti hai
+    lst.append(x); return lst
+print(add(1))  # [1]
+print(add(2))  # [1, 2]  ← surprise!
+
+def add(x, lst=None):    # ✅ sahi tarika
+    if lst is None: lst = []
+    lst.append(x); return lst
+```
+
+## Unpacking in calls
+```python
+def f(a, b, c): print(a, b, c)
+f(*[1,2,3])
+f(**{"a":1,"b":2,"c":3})
+```
+
+---
+
+# 13. Lambda, map, filter, reduce
+
+## Lambda
+**Kya hai?** Anonymous one-line function.
+**Kab?** Chhota kaam, sort key, map/filter ke saath.
+```python
+sq = lambda x: x**2
+print(sq(5))
+students = [("A", 90), ("B", 70)]
+students.sort(key=lambda s: s[1])
+```
+
+## map — har element pe function lagao
+```python
+print(list(map(lambda x: x*2, [1,2,3])))   # [2,4,6]
+```
+## filter — condition pass karne wale rakho
+```python
+print(list(filter(lambda x: x%2==0, [1,2,3,4])))  # [2,4]
+```
+## reduce — sabko ek value me combine karo
+```python
+from functools import reduce
+print(reduce(lambda a,b: a+b, [1,2,3,4]))   # 10
+```
+> Comprehension aksar map/filter se zyada readable hota hai.
+
+---
+
+# 14. Scope, Closures, Recursion
+
+## LEGB Rule
+**L**ocal → **E**nclosing → **G**lobal → **B**uilt-in
+```python
+x = "global"
+def outer():
+    x = "enclosing"
+    def inner():
+        x = "local"
+        print(x)
+    inner()
+outer()
+```
+
+**global & nonlocal:**
+```python
+count = 0
+def inc():
+    global count
+    count += 1
+
+def outer():
+    n = 0
+    def inner():
+        nonlocal n
+        n += 1
+        return n
+    return inner
+```
+
+## Closure
+**Kya hai?** Inner function jo outer function ke variable ko "yaad" rakhta hai.
+**Kab?** Data hiding, factory functions, decorators.
+```python
+def multiplier(n):
+    def multiply(x): return x * n
+    return multiply
+double = multiplier(2)
+print(double(5))   # 10
+```
+
+## Recursion
+**Kya hai?** Function khud ko call kare.
+**Kab?** Tree/graph traversal, factorial, fibonacci, divide & conquer.
+```python
+def fact(n):
+    if n <= 1: return 1          # base case zaroori
+    return n * fact(n-1)
+
+import sys
+print(sys.getrecursionlimit())    # default ~1000
+```
+**Memoization (speed up):**
+```python
+from functools import lru_cache
+@lru_cache(maxsize=None)
+def fib(n):
+    return n if n < 2 else fib(n-1) + fib(n-2)
+print(fib(50))
+```
+
+---
+
+# 15. Comprehensions
+
+**Kyun?** Short, fast, readable code.
+```python
+# List
+sq = [x**2 for x in range(5)]
+even = [x for x in range(10) if x%2==0]
+labels = ["even" if x%2==0 else "odd" for x in range(3)]
+flat = [n for row in [[1,2],[3,4]] for n in row]   # flatten
+
+# Set
+s = {x%3 for x in range(10)}
+
+# Dict
+d = {c: ord(c) for c in "abc"}
+
+# Generator expression (memory efficient)
+g = (x**2 for x in range(10**6))
+print(sum(g))
+```
+**Kab generator expression?** Bada data ho aur memory bachani ho.
+
+---
+
+# 16. Built-in Functions (Important)
+
+| Function | Kaam | Example |
+|----------|------|---------|
+| `print()` | Output | |
+| `input()` | Input | |
+| `len()` | Length | `len([1,2])` → 2 |
+| `type()` | Type | |
+| `isinstance(o, t)` | Type check | |
+| `issubclass(a, b)` | Class relation | |
+| `range()` | Number sequence | |
+| `enumerate()` | Index + value | |
+| `zip()` | Parallel iterate | |
+| `map() / filter()` | Functional | |
+| `sum()` | Total | |
+| `min() / max()` | Smallest/Largest | `max(l, key=len)` |
+| `abs()` | Absolute | `abs(-5)` → 5 |
+| `round(x, n)` | Rounding | `round(3.567, 2)` → 3.57 |
+| `pow(a, b, mod)` | Power | `pow(2,3)` → 8 |
+| `divmod(a, b)` | (quotient, remainder) | `divmod(7,2)` → (3,1) |
+| `sorted()` | Sorted list | |
+| `reversed()` | Reverse iterator | |
+| `any()` | Koi ek True? | `any([0,1])` → True |
+| `all()` | Sab True? | `all([1,1])` → True |
+| `int() float() str() bool() list() tuple() set() dict()` | Conversion | |
+| `chr() / ord()` | Char ↔ ASCII | `ord("A")` → 65 |
+| `bin() / oct() / hex()` | Base conversion | `bin(5)` → `0b101` |
+| `id()` | Memory identity | |
+| `hash()` | Hash value | |
+| `dir()` | Object ke attributes | |
+| `help()` | Documentation | |
+| `vars()` | `__dict__` | |
+| `globals() / locals()` | Scope dict | |
+| `callable()` | Callable hai? | |
+| `iter() / next()` | Iterator | |
+| `open()` | File open | |
+| `eval() / exec()` | Code string run (⚠️ risky) | |
+| `getattr / setattr / hasattr / delattr` | Dynamic attribute | |
+| `slice()` | Slice object | |
+| `frozenset()` | Immutable set | |
+| `bytes() / bytearray()` | Bytes | |
+| `complex()` | Complex number | |
+| `format()` | Formatting | |
+| `repr()` | Developer string | |
+| `ascii()` | ASCII repr | |
+| `memoryview()` | Memory buffer | |
+| `object()` | Base object | |
+| `property() staticmethod() classmethod() super()` | OOP | |
+| `breakpoint()` | Debugger | |
+| `__import__()` | Dynamic import | |
+
+```python
+print(any([0, "", None]))    # False
+print(all([1, "a", True]))   # True
+print(max(["aa","b","cccc"], key=len))   # cccc
+print(list(zip([1,2],[3,4])))            # [(1,3),(2,4)]
+```
+
+---
+
+# 17. File Handling
+
+**Kya hai?** File ko read/write karna.
+**Kab?** Logs, CSV, config, data storage.
+
+**Modes:** `r` read | `w` write (overwrite) | `a` append | `x` create (exists to error) | `r+` read+write | `b` binary | `t` text
+
+```python
+# Hamesha `with` use karo — auto close
+with open("data.txt", "w", encoding="utf-8") as f:
+    f.write("Line 1\n")
+    f.writelines(["Line 2\n", "Line 3\n"])
+
+with open("data.txt") as f:
+    print(f.read())        # poori file
+with open("data.txt") as f:
+    print(f.readline())    # ek line
+with open("data.txt") as f:
+    print(f.readlines())   # list of lines
+with open("data.txt") as f:
+    for line in f:         # memory efficient ✅
+        print(line.strip())
+```
+
+**File methods:** `read(n)`, `readline()`, `readlines()`, `write()`, `writelines()`, `seek(pos)`, `tell()`, `flush()`, `truncate()`, `close()`
+
+## CSV
+```python
+import csv
+with open("a.csv", "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["name", "age"])
+    w.writerow(["A", 20])
+with open("a.csv") as f:
+    for row in csv.DictReader(f):
+        print(row["name"])
+```
+
+## JSON
+```python
+import json
+data = {"name": "A", "skills": ["py","sql"]}
+s = json.dumps(data, indent=2)      # dict → string
+d = json.loads(s)                   # string → dict
+with open("d.json","w") as f: json.dump(data, f)
+with open("d.json") as f: print(json.load(f))
+```
+
+## os / pathlib
+```python
+import os
+from pathlib import Path
+print(os.getcwd())
+print(os.listdir("."))
+os.makedirs("a/b", exist_ok=True)
+print(os.path.exists("x.txt"))
+os.remove("x.txt")
+
+p = Path("a") / "b" / "c.txt"       # modern way
+print(p.exists(), p.suffix, p.name, p.parent)
+p.write_text("hello")
+print(p.read_text())
+```
+
+---
+
+# 18. Exception Handling
+
+**Kya hai?** Runtime errors ko gracefully handle karna taaki program crash na ho.
+**Kab?** User input, file/network/DB operations.
+
+```python
+try:
+    n = int(input("Number: "))
+    print(10 / n)
+except ValueError:
+    print("Number daalo!")
+except ZeroDivisionError:
+    print("Zero se divide nahi")
+except Exception as e:
+    print("Error:", e)
+else:
+    print("Koi error nahi aaya")
+finally:
+    print("Hamesha chalega (cleanup)")
+```
+
+**Common Exceptions:** `ValueError, TypeError, IndexError, KeyError, ZeroDivisionError, FileNotFoundError, AttributeError, ImportError, NameError, StopIteration, RuntimeError, RecursionError, KeyboardInterrupt, PermissionError, OverflowError, AssertionError`
+
+**raise:**
+```python
+def withdraw(bal, amt):
+    if amt > bal:
+        raise ValueError("Insufficient balance")
+    return bal - amt
+```
+
+**Custom Exception:**
+```python
+class AgeError(Exception):
+    def __init__(self, age):
+        super().__init__(f"Invalid age: {age}")
+        self.age = age
+try:
+    raise AgeError(-5)
+except AgeError as e:
+    print(e)
+```
+
+**Exception chaining:** `raise NewError("x") from original_error`
+
+**assert:** `assert x > 0, "x positive hona chahiye"` (debugging ke liye)
+
+**Multiple exceptions:** `except (ValueError, TypeError):`
+
+**ExceptionGroup (3.11+):** `except*` multiple concurrent errors ke liye.
+
+---
+
+# 19. Modules & Packages
+
+**Kya hai?** Module = ek `.py` file. Package = folder jisme `__init__.py` hota hai.
+**Kyun?** Code organize, reuse.
+
+```python
+import math
+from math import sqrt, pi
+import random as rnd
+from os.path import *   # ⚠️ avoid
+```
+
+```python
+import math
+print(math.sqrt(16), math.ceil(2.1), math.floor(2.9), math.factorial(5), math.gcd(12,18), math.pi)
+
+import random
+random.randint(1,10); random.choice([1,2,3]); random.shuffle(lst); random.sample(lst, 2); random.random()
+```
+
+**`if __name__ == "__main__":`**
+```python
+def main(): print("run")
+if __name__ == "__main__":
+    main()   # sirf direct run par chalega, import par nahi
+```
+
+**Useful modules:** `os, sys, math, random, datetime, time, json, csv, re, collections, itertools, functools, pathlib, logging, argparse, subprocess, threading, multiprocessing, asyncio, sqlite3, urllib, unittest, pickle, hashlib, uuid, shutil, copy, typing, dataclasses, enum, abc, heapq, bisect, statistics, decimal, fractions, string, textwrap, glob, tempfile, zipfile`
+
+---
+
+# 20. OOP (Object Oriented Programming)
+
+**Kya hai?** Code ko objects (data + behavior) me organize karna.
+**Kyun?** Reusability, modularity, real-world modeling.
+**Kab?** Bade projects, jahan entities hon (User, Car, Order).
+
+## Class & Object
+```python
+class Student:
+    school = "ABC"                 # class variable (sabke liye same)
+
+    def __init__(self, name, marks):   # constructor
+        self.name = name               # instance variable
+        self.marks = marks
+
+    def show(self):                    # instance method
+        print(f"{self.name}: {self.marks}")
+
+    @classmethod
+    def from_string(cls, s):           # alternative constructor
+        n, m = s.split("-")
+        return cls(n, int(m))
+
+    @staticmethod
+    def is_pass(m):                    # utility, self/cls nahi chahiye
+        return m >= 33
+
+s = Student("Ravi", 80)
+s.show()
+s2 = Student.from_string("Amit-90")
+print(Student.is_pass(40))
+```
+
+| Method type | First param | Kab use? |
+|-------------|-------------|----------|
+| Instance | `self` | Object ka data chahiye |
+| Class | `cls` | Class-level data / factory |
+| Static | koi nahi | Utility function |
+
+## 4 Pillars
+
+### 1. Encapsulation — data hide karna
+```python
+class Account:
+    def __init__(self, bal):
+        self.__bal = bal           # private (name mangling)
+        self._type = "saving"      # protected (convention)
+    def deposit(self, amt):
+        if amt > 0: self.__bal += amt
+    def get_balance(self): return self.__bal
+```
+### Property (getter/setter Pythonic way)
+```python
+class Person:
+    def __init__(self, age): self._age = age
+    @property
+    def age(self): return self._age
+    @age.setter
+    def age(self, v):
+        if v < 0: raise ValueError("Negative age")
+        self._age = v
+p = Person(10); p.age = 20
+```
+
+### 2. Inheritance — parent ki properties child le
+```python
+class Animal:
+    def __init__(self, name): self.name = name
+    def speak(self): print("Some sound")
+
+class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name)
+        self.breed = breed
+    def speak(self):               # method overriding
+        print("Bark")
+```
+**Types:** Single, Multiple, Multilevel, Hierarchical, Hybrid.
+**MRO (Method Resolution Order):** `Class.__mro__` ya `Class.mro()` — multiple inheritance me kaun sa method pehle milega (C3 linearization).
+```python
+class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass
+print(D.__mro__)
+```
+
+### 3. Polymorphism — ek naam, kai roop
+```python
+for a in [Dog("x","y"), Animal("z")]:
+    a.speak()     # alag-alag output
+print(len("abc"), len([1,2]))   # built-in bhi polymorphic
+```
+**Duck Typing:** "Agar wo duck jaisa chalta aur bolta hai, to duck hai" — type nahi, behavior dekho.
+
+### 4. Abstraction — sirf zaroori cheezein dikhana
+```python
+from abc import ABC, abstractmethod
+class Shape(ABC):
+    @abstractmethod
+    def area(self): ...
+class Circle(Shape):
+    def __init__(self, r): self.r = r
+    def area(self): return 3.14 * self.r**2
+# Shape()  → TypeError
+```
+
+## Composition vs Inheritance
+- **Inheritance** = "is-a" (Dog is an Animal)
+- **Composition** = "has-a" (Car has an Engine)
+> Modern advice: Composition ko prefer karo (flexible).
+
+## `__slots__`
+Memory bachata hai, dynamic attributes rokta hai.
+```python
+class P:
+    __slots__ = ("x", "y")
+```
+
+## Class vs Instance variable trap
+```python
+class A: items = []
+a, b = A(), A()
+a.items.append(1)
+print(b.items)   # [1] ← shared!
+```
+
+---
+
+# 21. Magic / Dunder Methods
+
+**Kya hai?** `__name__` format ke special methods jo Python automatically call karta hai.
+**Kyun?** Custom objects ko built-in jaisa behave karwane ke liye.
+
+| Method | Kab call hota hai |
+|--------|-------------------|
+| `__init__` | Object banne par |
+| `__new__` | Object memory create (init se pehle) |
+| `__del__` | Object destroy hone par |
+| `__str__` | `print(obj)`, `str(obj)` (user-friendly) |
+| `__repr__` | Debug/`repr(obj)` (developer-friendly) |
+| `__len__` | `len(obj)` |
+| `__getitem__` / `__setitem__` / `__delitem__` | `obj[k]` |
+| `__contains__` | `x in obj` |
+| `__iter__` / `__next__` | Loop |
+| `__call__` | `obj()` |
+| `__add__ __sub__ __mul__ __truediv__ __floordiv__ __mod__ __pow__` | Operators |
+| `__eq__ __ne__ __lt__ __le__ __gt__ __ge__` | Comparison |
+| `__hash__` | `hash(obj)` / dict key |
+| `__bool__` | `bool(obj)` |
+| `__enter__` / `__exit__` | `with` statement |
+| `__getattr__` / `__setattr__` | Attribute access |
+| `__class__`, `__dict__`, `__doc__`, `__name__` | Metadata |
+
+```python
+class Vector:
+    def __init__(self, x, y): self.x, self.y = x, y
+    def __add__(self, o): return Vector(self.x+o.x, self.y+o.y)
+    def __eq__(self, o): return self.x==o.x and self.y==o.y
+    def __str__(self): return f"({self.x}, {self.y})"
+    def __repr__(self): return f"Vector({self.x}, {self.y})"
+    def __len__(self): return 2
+    def __call__(self): return "called!"
+
+v = Vector(1,2) + Vector(3,4)
+print(v)         # (4, 6)
+```
+
+---
+
+# 22. Iterators & Generators
+
+## Iterator
+**Kya hai?** Object jisme `__iter__()` aur `__next__()` ho.
+```python
+l = [1,2,3]
+it = iter(l)
+print(next(it), next(it), next(it))
+# next(it) → StopIteration
+```
+**Custom iterator:**
+```python
+class Count:
+    def __init__(self, n): self.n, self.i = n, 0
+    def __iter__(self): return self
+    def __next__(self):
+        if self.i >= self.n: raise StopIteration
+        self.i += 1
+        return self.i
+```
+
+## Generator
+**Kya hai?** `yield` wala function; values lazily ek-ek karke deta hai.
+**Kyun?** Memory efficient — poora data ek saath memory me nahi.
+**Kab?** Badi files, infinite sequences, data pipelines.
+```python
+def countdown(n):
+    while n > 0:
+        yield n
+        n -= 1
+for x in countdown(3): print(x)
+
+def read_big(path):
+    with open(path) as f:
+        for line in f:
+            yield line.strip()
+
+# yield from
+def chain(*its):
+    for it in its:
+        yield from it
+```
+`send()`, `close()`, `throw()` generator ke advanced methods hain.
+
+---
+
+# 23. Decorators
+
+**Kya hai?** Function ko modify/extend karne wala function, bina original code badle.
+**Kyun?** Logging, timing, authentication, caching, retry.
+**Kab?** Jab multiple functions me same extra behavior chahiye.
+
+```python
+import time, functools
+
+def timer(func):
+    @functools.wraps(func)        # original name/doc preserve
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} took {time.time()-start:.4f}s")
+        return result
+    return wrapper
+
+@timer
+def slow():
+    time.sleep(1)
+slow()
+```
+
+**Decorator with arguments:**
+```python
+def repeat(n):
+    def deco(func):
+        @functools.wraps(func)
+        def wrapper(*a, **k):
+            for _ in range(n): func(*a, **k)
+        return wrapper
+    return deco
+
+@repeat(3)
+def hi(): print("Hi")
+```
+
+**Class decorator / Built-in decorators:** `@property`, `@staticmethod`, `@classmethod`, `@functools.lru_cache`, `@functools.wraps`, `@dataclass`, `@abstractmethod`.
+
+**Real example — Login check:**
+```python
+def login_required(f):
+    def wrapper(user, *a, **k):
+        if not user.get("logged_in"):
+            return "Please login"
+        return f(user, *a, **k)
+    return wrapper
+```
+
+---
+
+# 24. Context Managers
+
+**Kya hai?** `with` statement jo setup + cleanup automatically handle karta hai.
+**Kab?** File, DB connection, lock, network.
+
+```python
+class Timer:
+    def __enter__(self):
+        import time; self.s = time.time(); return self
+    def __exit__(self, exc_type, exc, tb):
+        import time; print("Time:", time.time()-self.s)
+        return False   # exception suppress nahi karna
+
+with Timer(): sum(range(10**6))
+
+# contextlib se easy
+from contextlib import contextmanager
+@contextmanager
+def my_ctx():
+    print("start")
+    try: yield
+    finally: print("end")
+```
+
+---
+
+# 25. Important Standard Libraries
+
+## collections
+```python
+from collections import Counter, defaultdict, deque, OrderedDict, ChainMap
+
+Counter("banana")                 # {'a':3,'n':2,'b':1}
+Counter("banana").most_common(2)
+
+dd = defaultdict(list)            # missing key pe default
+dd["a"].append(1)
+
+dq = deque([1,2,3], maxlen=5)     # dono sides O(1)
+dq.appendleft(0); dq.pop(); dq.popleft(); dq.rotate(1)
+```
+**deque kab?** Queue/sliding window — `list.pop(0)` O(n) hai, `deque.popleft()` O(1).
+
+## itertools
+```python
+import itertools as it
+list(it.permutations([1,2,3], 2))
+list(it.combinations([1,2,3], 2))
+list(it.product("ab", repeat=2))
+list(it.chain([1],[2]))
+list(it.islice(it.count(1), 5))     # 1..5
+it.cycle("ab"); it.repeat(5, 3)
+list(it.accumulate([1,2,3]))        # [1,3,6]
+for k, g in it.groupby("aabbb"): print(k, list(g))
+list(it.zip_longest([1,2],[3], fillvalue=0))
+```
+
+## functools
+`reduce`, `lru_cache`, `partial`, `wraps`, `cache`, `total_ordering`, `singledispatch`
+```python
+from functools import partial
+def power(x, n): return x ** n
+square = partial(power, n=2)
+print(square(5))   # 25
+```
+
+## datetime
+```python
+from datetime import datetime, date, timedelta
+now = datetime.now()
+print(now.strftime("%d-%m-%Y %H:%M:%S"))
+d = datetime.strptime("21-11-2026", "%d-%m-%Y")
+print(now + timedelta(days=7))
+print((date(2026,12,25) - date.today()).days)
+```
+Codes: `%Y` year, `%m` month, `%d` day, `%H` hour, `%M` min, `%S` sec, `%A` weekday name, `%B` month name.
+
+## re (Regex)
+**Kab?** Pattern matching — email, phone, extract data.
+```python
+import re
+text = "Call 9876543210 or 9123456789"
+print(re.findall(r"\d{10}", text))
+print(re.search(r"\d+", text).group())
+print(re.sub(r"\d", "*", text))
+print(re.match(r"^[\w.]+@[\w.]+\.\w+$", "a@b.com"))
+print(re.split(r"\s+", "a  b   c"))
+pat = re.compile(r"(\d+)-(\d+)")
+m = pat.search("10-20"); print(m.group(1), m.groups())
+```
+| Pattern | Matlab |
+|---------|--------|
+| `.` | koi bhi char |
+| `\d \w \s` | digit / word / space |
+| `^ $` | start / end |
+| `* + ?` | 0+ / 1+ / 0-1 |
+| `{n,m}` | n se m baar |
+| `[abc]` | a ya b ya c |
+| `(...)` | group |
+| `\|` | OR |
+
+## logging
+```python
+import logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logging.info("Started"); logging.error("Failed")
+```
+> `print` ki jagah production me `logging` use karo.
+
+## Others quick
+```python
+import sys; sys.argv, sys.exit(), sys.path
+import heapq; h=[]; heapq.heappush(h,3); heapq.heappop(h)   # priority queue
+import bisect; bisect.bisect_left([1,3,5], 3)
+import statistics; statistics.mean([1,2,3]); statistics.median([1,2,3])
+import uuid; uuid.uuid4()
+import hashlib; hashlib.sha256(b"abc").hexdigest()
+import enum
+class Color(enum.Enum): RED=1; GREEN=2
+import pickle   # object serialize
+import subprocess; subprocess.run(["ls"], capture_output=True, text=True)
+import argparse   # CLI arguments
+import sqlite3    # built-in database
+```
+
+**sqlite3 mini example:**
+```python
+import sqlite3
+con = sqlite3.connect("app.db")
+cur = con.cursor()
+cur.execute("CREATE TABLE IF NOT EXISTS u(id INTEGER PRIMARY KEY, name TEXT)")
+cur.execute("INSERT INTO u(name) VALUES (?)", ("Ravi",))   # ? use karo → SQL injection se bachao
+con.commit()
+print(cur.execute("SELECT * FROM u").fetchall())
+con.close()
+```
+
+---
+
+# 26. Dataclasses & Type Hints
+
+## Type Hints
+**Kyun?** Readability, IDE help, mypy se bugs pakadna (runtime pe enforce nahi hota).
+```python
+from typing import List, Dict, Optional, Union, Tuple, Callable, Any
+def greet(name: str, age: int = 0) -> str:
+    return f"{name} {age}"
+def f(x: Optional[int] = None) -> list[int]: ...   # 3.9+ list[int]
+x: int | str = 5                                   # 3.10+
+```
+
+## Dataclass
+**Kab?** Sirf data store karne wali class — boilerplate (`__init__`, `__repr__`, `__eq__`) automatic.
+```python
+from dataclasses import dataclass, field
+
+@dataclass
+class User:
+    name: str
+    age: int = 18
+    tags: list = field(default_factory=list)
+
+u = User("Ravi")
+print(u)    # User(name='Ravi', age=18, tags=[])
+
+@dataclass(frozen=True, order=True)   # immutable + comparable
+class P: x: int; y: int
+```
+
+---
+
+# 27. Concurrency
+
+| Type | Kab use? |
+|------|----------|
+| **Threading** | I/O-bound (network, file) |
+| **Multiprocessing** | CPU-bound (heavy calculation) |
+| **Asyncio** | Bahut saare I/O tasks (APIs, web scraping) |
+
+**GIL (Global Interpreter Lock):** CPython me ek time pe sirf ek thread Python bytecode chalata hai → threads CPU-bound kaam ko fast nahi karte; uske liye multiprocessing use karo.
+
+```python
+# Threading
+import threading, time
+def work(n): time.sleep(1); print("done", n)
+ts = [threading.Thread(target=work, args=(i,)) for i in range(3)]
+[t.start() for t in ts]; [t.join() for t in ts]
+
+lock = threading.Lock()
+with lock: pass     # race condition se bachao
+
+# ThreadPool (easy)
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+with ThreadPoolExecutor(max_workers=5) as ex:
+    results = list(ex.map(lambda x: x*2, range(5)))
+
+# Multiprocessing
+from multiprocessing import Pool
+def sq(x): return x*x
+if __name__ == "__main__":
+    with Pool(4) as p: print(p.map(sq, range(10)))
+
+# Asyncio
+import asyncio
+async def fetch(i):
+    await asyncio.sleep(1)
+    return i
+async def main():
+    res = await asyncio.gather(*(fetch(i) for i in range(5)))
+    print(res)         # ~1 sec me, 5 sec nahi
+asyncio.run(main())
+```
+
+---
+
+# 28. Virtual Env, pip, Testing
+
+## venv
+**Kyun?** Har project ki alag dependencies; conflicts nahi.
+```bash
+python -m venv venv
+source venv/bin/activate        # Linux/Mac
+venv\Scripts\activate           # Windows
+pip install requests
+pip freeze > requirements.txt
+pip install -r requirements.txt
+pip list
+pip uninstall requests
+deactivate
+```
+
+## Testing
+```python
+# unittest
+import unittest
+class T(unittest.TestCase):
+    def test_add(self): self.assertEqual(1+1, 2)
+if __name__ == "__main__": unittest.main()
+
+# pytest (popular)
+def test_add(): assert 1 + 1 == 2
+# run: pytest
+```
+
+## Debugging
+`breakpoint()`, `pdb`, `print`, `logging`, IDE debugger.
+
+## Code quality tools
+`black` (format), `flake8/ruff` (lint), `mypy` (types), `isort` (imports).
+
+## PEP 8 basics
+4 spaces indent, `snake_case`, line ≤ 79–88 chars, 2 blank lines between functions/classes.
+
+---
+
+# 29. 🎯 Python Tricks
+
+```python
+# 1. Swap
+a, b = b, a
+
+# 2. Reverse string/list
+s[::-1]
+
+# 3. Chained comparison
+1 < x < 10
+
+# 4. Unpacking
+first, *mid, last = [1,2,3,4,5]
+
+# 5. Flatten list
+flat = [x for r in m for x in r]
+
+# 6. Dict merge
+{**d1, **d2}   # ya d1 | d2
+
+# 7. Most frequent
+max(set(l), key=l.count)
+
+# 8. Check all/any
+all(x > 0 for x in l)
+
+# 9. enumerate with start
+for i, v in enumerate(l, 1): ...
+
+# 10. zip transpose
+list(zip(*[[1,2],[3,4]]))   # [(1,3),(2,4)]
+
+# 11. dict from two lists
+dict(zip(keys, values))
+
+# 12. Remove duplicates keep order
+list(dict.fromkeys(l))
+
+# 13. Ternary
+x = "a" if cond else "b"
+
+# 14. Underscore number
+big = 1_000_000
+
+# 15. Multiple conditions in one if
+if x in (1, 2, 3): ...
+
+# 16. Last element
+l[-1]
+
+# 17. Count with sum
+sum(1 for x in l if x > 5)
+
+# 18. String join instead of +=
+"".join(parts)    # fast
+
+# 19. f-string debug
+print(f"{x=}")
+
+# 20. Sort by multiple keys
+sorted(data, key=lambda s: (-s["marks"], s["name"]))
+
+# 21. Default dict value
+d.get(k, 0)
+
+# 22. Check empty
+if not lst: ...
+
+# 23. _ ka use
+for _ in range(3): ...
+a, _, c = (1,2,3)
+
+# 24. Star unpack in function call
+print(*[1,2,3], sep=", ")
+
+# 25. Pretty print
+from pprint import pprint
+```
+
+**Tricky Outputs:**
+```python
+print(0.1 + 0.2 == 0.3)         # False (floating point)
+print(round(0.1+0.2, 2) == 0.3) # True
+print(3 * "ab")                 # ababab
+print(True + True)              # 2
+print([] == [])                 # True ; [] is [] → False
+print("a" in "abc")             # True
+a = 256; b = 256; print(a is b) # True (small int caching)
+a = 257; b = 257; print(a is b) # implementation dependent
+print(bool("False"))            # True (non-empty string)
+print(type(()), type((1,)))     # tuple, tuple ; (1) → int
+print(sum([[1],[2]], []))       # [1,2]
+print(10 // 3, -10 // 3)        # 3, -4 (floor!)
+print(-7 % 3)                   # 2
+print(int("10", 2))             # 2 (binary)
+print([1,2,3][5:])              # [] slicing me IndexError nahi
+print("abc"[10:])               # ''
+x = [1,2,3]; y = x; y.append(4); print(x)   # [1,2,3,4]
+print(max("apple","banana"))    # banana (lexicographic)
+print(1 if [] else 2)           # 2
+```
+
+---
+
+# 30. 🧠 Interview Questions & Answers
+
+### Basic
+**Q1. Python interpreted hai ya compiled?**
+Dono. Source → bytecode (`.pyc`) compile hota hai, phir PVM (Python Virtual Machine) usse interpret karta hai.
+
+**Q2. List vs Tuple?**
+List mutable, tuple immutable. Tuple thoda fast aur memory-light; dict key ban sakta hai (agar hashable elements hon).
+
+**Q3. List vs Set vs Dict?**
+List: ordered, duplicates. Set: unique, unordered. Dict: key-value, fast lookup.
+
+**Q4. `==` vs `is`?**
+`==` value compare, `is` memory identity (same object).
+
+**Q5. Mutable vs Immutable?**
+Mutable (list, dict, set) in-place change. Immutable (int, str, tuple) change = naya object.
+
+**Q6. `*args` aur `**kwargs`?**
+`*args` extra positional → tuple. `**kwargs` extra keyword → dict.
+
+**Q7. Python me memory management kaise hota hai?**
+Private heap, **reference counting** + **cyclic garbage collector** (`gc` module).
+
+**Q8. `__init__` kya hai?**
+Constructor-like initializer jo object banne ke baad call hota hai (actual object `__new__` banata hai).
+
+**Q9. `self` kya hai?**
+Current instance ka reference.
+
+**Q10. Pass by value ya reference?**
+**Pass by object reference (assignment)**. Mutable object function me change ho sakta hai; reassign karne se bahar asar nahi.
+```python
+def f(l): l.append(1); l = [9]
+x = []; f(x); print(x)   # [1]
+```
+
+### Intermediate
+**Q11. Shallow vs Deep copy?** Shallow sirf outer object copy karta hai (inner references same). Deep recursively sab copy karta hai.
+
+**Q12. Decorator kya hai?** Function ko wrap karke behavior add karta hai.
+
+**Q13. Generator vs Iterator vs Iterable?**
+Iterable: loop kar sakte ho (`__iter__`). Iterator: `__next__` hota hai. Generator: `yield` se bana iterator, lazy.
+
+**Q14. Generator vs List?** Generator memory-efficient (lazy), ek baar hi iterate; list sab store karti hai.
+
+**Q15. GIL kya hai?** CPython me ek time pe ek thread Python bytecode execute karta hai. CPU-bound ke liye multiprocessing.
+
+**Q16. `@staticmethod` vs `@classmethod`?** Static: koi implicit arg nahi. Class: `cls` milta hai (class state/factory).
+
+**Q17. `__str__` vs `__repr__`?** `__str__` user ke liye readable, `__repr__` developer ke liye unambiguous (aur fallback).
+
+**Q18. LEGB rule?** Local, Enclosing, Global, Built-in.
+
+**Q19. Closure kya hai?** Inner function jo outer scope ke variables yaad rakhe.
+
+**Q20. `with` statement kyun?** Resources auto cleanup (context manager).
+
+**Q21. Python me multiple inheritance ka diamond problem?** MRO (C3 linearization) solve karta hai; `super()` MRO follow karta hai.
+
+**Q22. `is` se None kyun check karte hain?** None singleton hai, `is` fast & sahi; `==` overload ho sakta hai.
+
+**Q23. Lambda ki limitations?** Sirf single expression, statements nahi.
+
+**Q24. List comprehension vs map/filter?** Comprehension zyada readable/Pythonic.
+
+**Q25. `sort()` vs `sorted()`?** In-place vs new list.
+
+### Advanced
+**Q26. Metaclass kya hai?** Class ki class. `type` default metaclass hai. Class creation customize karne ke liye.
+```python
+class Meta(type):
+    def __new__(mcs, name, bases, ns):
+        print("Creating", name)
+        return super().__new__(mcs, name, bases, ns)
+class A(metaclass=Meta): pass
+```
+
+**Q27. `__new__` vs `__init__`?** `__new__` instance banata hai (static, class leta hai), `__init__` usse initialize karta hai.
+
+**Q28. Singleton pattern?**
+```python
+class Singleton:
+    _inst = None
+    def __new__(cls):
+        if cls._inst is None:
+            cls._inst = super().__new__(cls)
+        return cls._inst
+```
+
+**Q29. Descriptor kya hai?** Jis class me `__get__`, `__set__`, `__delete__` ho. `property`, methods iske examples hain.
+
+**Q30. Python me threading vs multiprocessing vs asyncio?** I/O-bound → threading/asyncio; CPU-bound → multiprocessing.
+
+**Q31. `yield` vs `return`?** `return` function khatam; `yield` pause karke state yaad rakhta hai.
+
+**Q32. Hashable kya hota hai?** Jis object ka `__hash__` ho aur wo immutable ho (dict key / set element ban sakta hai).
+
+**Q33. `__slots__` kyun?** Memory kam, attribute restriction.
+
+**Q34. Monkey patching?** Runtime me class/module ko modify karna.
+
+**Q35. `copy` vs `=`?** `=` sirf naya reference; `copy` naya object.
+
+**Q36. `functools.lru_cache` kya?** Function results ko cache (memoization).
+
+**Q37. Python 2 vs 3?** Py3: print function, unicode default, `/` true division, f-strings, type hints, asyncio.
+
+**Q38. `global` keyword?** Function ke andar global variable modify karne ke liye.
+
+**Q39. `pass` vs `continue` vs `break`?** pass: kuch nahi; continue: next iteration; break: loop band.
+
+**Q40. Context manager banane ke 2 tareeke?** Class (`__enter__/__exit__`) ya `@contextmanager`.
+
+**Q41. Python me private variable kaise?** Truly private nahi; `_x` (convention), `__x` (name mangling → `_Class__x`).
+
+**Q42. `*` unpack kab?** Function call, list/tuple/dict merge, extended assignment.
+
+**Q43. `dict` ordered hai?** 3.7+ me insertion order guaranteed.
+
+**Q44. Time complexity:** list append O(1) amortized, list insert(0) O(n), `x in list` O(n), `x in set/dict` O(1), sort O(n log n), dict get O(1).
+
+**Q45. Exception vs Error?** Technical roop se sab exceptions hain; `Exception` base class hai most user-level errors ki; `BaseException` sabka parent (KeyboardInterrupt, SystemExit).
+
+**Q46. `try-except-else-finally` me finally kab nahi chalta?** Jab process hi kill ho jaye (`os._exit`) ya power cut.
+
+**Q47. Duck typing?** Type nahi, behavior (methods) dekhna.
+
+**Q48. `__call__`?** Object ko function ki tarah call karne deta hai.
+
+**Q49. Enumerate vs range(len())?** `enumerate` Pythonic aur clean.
+
+**Q50. Pickling?** Object ko bytes me serialize (`pickle`); untrusted data unpickle mat karo (security risk).
+
+---
+
+# 31. 💪 Practice Questions
+
+## 🟢 Level 1 — Beginner
+1. Do numbers ka sum, difference, product, division print karo.
+2. Number even hai ya odd check karo.
+3. 1 se 100 tak ke even numbers print karo.
+4. Number ka factorial nikalo (loop se).
+5. Number prime hai ya nahi check karo.
+6. String reverse karo (3 tareeke se).
+7. String palindrome hai ya nahi?
+8. String me vowels count karo.
+9. Leap year check karo.
+10. Celsius → Fahrenheit converter.
+11. Multiplication table print karo.
+12. Fibonacci series n terms tak.
+13. List ka largest & smallest (bina `max/min`).
+14. Digits ka sum (e.g., 1234 → 10).
+15. Armstrong number check.
+
+## 🟡 Level 2 — Intermediate
+16. List se duplicates hatao.
+17. Do lists ke common elements nikalo.
+18. List ko flatten karo (nested).
+19. Sentence me har word ka frequency count (dict).
+20. Second largest number list me.
+21. Anagram check (`listen`, `silent`).
+22. Number ko binary me convert karo (bina `bin`).
+23. List ko rotate karo k positions se.
+24. Matrix transpose.
+25. Matrix multiplication.
+26. Dictionary ko value ke basis pe sort karo.
+27. String compress: `aaabb` → `a3b2`.
+28. First non-repeating character.
+29. Two Sum: list me do numbers jinka sum target ho.
+30. Balanced parentheses check (stack).
+31. Pascal's triangle.
+32. GCD & LCM.
+33. Text file ke words count karo.
+34. CSV read karke average marks nikalo.
+35. Simple calculator with exception handling.
+
+## 🔴 Level 3 — Advanced
+36. Decorator banao jo function ka execution time print kare.
+37. Retry decorator (n baar retry on exception).
+38. Generator: infinite Fibonacci.
+39. Custom context manager: file open/close log ke saath.
+40. LRU Cache khud implement karo (`OrderedDict` ya doubly linked list).
+41. Class `Stack` & `Queue` implement karo.
+42. Singleton class banao.
+43. Bank Account class (deposit/withdraw/insufficient balance exception).
+44. Binary search (iterative + recursive).
+45. Merge sort, Quick sort.
+46. Linked list implement karo (insert, delete, reverse).
+47. Binary tree traversal (inorder, preorder, postorder, level order).
+48. BFS & DFS on graph.
+49. Longest substring without repeating characters.
+50. Async: 10 URLs ko concurrently fetch (simulate with `asyncio.sleep`).
+51. Multiprocessing se 1 se 10^7 tak sum parallel nikalo.
+52. N-Queens / Sudoku solver (backtracking).
+53. Rate limiter class banao.
+54. Mini regex: phone/email validator.
+55. Custom `Vector` class with `+ - * ==` operators.
+
+### ✅ Kuch Solutions
+
+**Prime check:**
+```python
+def is_prime(n):
+    if n < 2: return False
+    for i in range(2, int(n**0.5)+1):
+        if n % i == 0: return False
+    return True
+```
+
+**Anagram:**
+```python
+def is_anagram(a, b): return sorted(a) == sorted(b)
+```
+
+**Two Sum (O(n)):**
+```python
+def two_sum(nums, target):
+    seen = {}
+    for i, n in enumerate(nums):
+        if target - n in seen:
+            return [seen[target-n], i]
+        seen[n] = i
+```
+
+**Balanced brackets:**
+```python
+def balanced(s):
+    pairs = {")":"(", "]":"[", "}":"{"}
+    st = []
+    for c in s:
+        if c in "([{": st.append(c)
+        elif c in pairs:
+            if not st or st.pop() != pairs[c]: return False
+    return not st
+```
+
+**String compress:**
+```python
+from itertools import groupby
+def compress(s): return "".join(f"{k}{len(list(g))}" for k, g in groupby(s))
+```
+
+**Binary search:**
+```python
+def bsearch(a, t):
+    lo, hi = 0, len(a)-1
+    while lo <= hi:
+        mid = (lo+hi)//2
+        if a[mid] == t: return mid
+        if a[mid] < t: lo = mid+1
+        else: hi = mid-1
+    return -1
+```
+
+**Retry decorator:**
+```python
+import functools, time
+def retry(times=3, delay=1):
+    def deco(f):
+        @functools.wraps(f)
+        def wrap(*a, **k):
+            for i in range(times):
+                try: return f(*a, **k)
+                except Exception as e:
+                    print(f"Attempt {i+1} failed: {e}")
+                    time.sleep(delay)
+            raise RuntimeError("All retries failed")
+        return wrap
+    return deco
+```
+
+**Fibonacci generator:**
+```python
+def fib():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a+b
+```
+
+**LRU Cache:**
+```python
+from collections import OrderedDict
+class LRU:
+    def __init__(self, cap): self.c, self.d = cap, OrderedDict()
+    def get(self, k):
+        if k not in self.d: return -1
+        self.d.move_to_end(k); return self.d[k]
+    def put(self, k, v):
+        self.d[k] = v; self.d.move_to_end(k)
+        if len(self.d) > self.c: self.d.popitem(last=False)
+```
+
+---
+
+# 32. 🏗️ Real-World Mini Projects
+
+## Project 1: To-Do CLI App (File + JSON + Functions)
+```python
+import json, os
+FILE = "todo.json"
+
+def load():
+    return json.load(open(FILE)) if os.path.exists(FILE) else []
+def save(t): json.dump(t, open(FILE, "w"), indent=2)
+
+def main():
+    tasks = load()
+    while True:
+        c = input("\n1.Add 2.List 3.Done 4.Delete 5.Exit: ")
+        if c == "1":
+            tasks.append({"task": input("Task: "), "done": False})
+        elif c == "2":
+            for i, t in enumerate(tasks, 1):
+                print(i, "✅" if t["done"] else "⬜", t["task"])
+        elif c == "3":
+            tasks[int(input("No: "))-1]["done"] = True
+        elif c == "4":
+            tasks.pop(int(input("No: "))-1)
+        elif c == "5": break
+        save(tasks)
+main()
+```
+
+## Project 2: Bank System (OOP + Exceptions)
+```python
+class InsufficientFunds(Exception): pass
+
+class Account:
+    def __init__(self, owner, bal=0):
+        self.owner, self.__bal, self.history = owner, bal, []
+    def deposit(self, amt):
+        if amt <= 0: raise ValueError("Positive amount do")
+        self.__bal += amt; self.history.append(("D", amt))
+    def withdraw(self, amt):
+        if amt > self.__bal: raise InsufficientFunds("Balance kam hai")
+        self.__bal -= amt; self.history.append(("W", amt))
+    @property
+    def balance(self): return self.__bal
+
+a = Account("Ravi", 1000)
+a.deposit(500)
+try: a.withdraw(5000)
+except InsufficientFunds as e: print(e)
+print(a.balance)
+```
+
+## Project 3: Log Analyzer (Regex + Counter + Generator)
+```python
+import re
+from collections import Counter
+
+def read_lines(path):
+    with open(path) as f:
+        for line in f: yield line
+
+def analyze(path):
+    ips = Counter()
+    for line in read_lines(path):
+        m = re.search(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", line)
+        if m: ips[m.group()] += 1
+    return ips.most_common(5)
+```
+
+## Project 4: Web API Fetch (requests)
+```python
+# pip install requests
+import requests
+r = requests.get("https://api.github.com/users/octocat", timeout=10)
+if r.status_code == 200:
+    d = r.json()
+    print(d["name"], d["public_repos"])
+```
+
+## Project 5: Password Generator
+```python
+import secrets, string
+def gen(n=12):
+    chars = string.ascii_letters + string.digits + "!@#$%"
+    return "".join(secrets.choice(chars) for _ in range(n))
+print(gen())
+```
+
+## Project 6: Student Management (Dict + Sort)
+```python
+students = {"A": 85, "B": 92, "C": 78}
+top = sorted(students.items(), key=lambda x: x[1], reverse=True)
+print("Topper:", top[0])
+print("Average:", sum(students.values())/len(students))
+```
+
+## Project 7: Mini Web App ideas (next steps)
+- **Flask/FastAPI** — REST API
+- **Django** — full-stack web
+- **pandas + matplotlib** — data analysis
+- **BeautifulSoup/Scrapy** — web scraping
+- **Selenium/Playwright** — browser automation
+- **Telegram/Discord bot**
+
+---
+
+# 33. NumPy
+
+**Kya hai?** NumPy numerical computing ki library hai. Iska main object `ndarray` hai (fast, fixed-type array).
+**Kyun use karte hain?** Python list se 10-100x fast, kam memory, aur vectorized operations (bina loop ke poore array pe kaam).
+**Kab?** Maths, matrices, data science, ML, image processing, simulations.
+
+```bash
+pip install numpy
+```
+
+## Array Banana
+```python
+import numpy as np
+
+a = np.array([1, 2, 3])
+m = np.array([[1, 2, 3], [4, 5, 6]])     # 2D
+print(a.shape, m.shape)       # (3,) (2, 3)
+print(m.ndim, m.size, m.dtype)
+
+np.zeros((2, 3))              # sab 0
+np.ones((2, 2))               # sab 1
+np.full((2, 2), 7)            # sab 7
+np.eye(3)                     # identity matrix
+np.arange(0, 10, 2)           # [0 2 4 6 8]
+np.linspace(0, 1, 5)          # 0 se 1 ke beech 5 equal points
+np.random.rand(2, 3)          # random 0-1
+np.random.randint(1, 100, 5)  # random integers
+np.random.seed(42)            # same random har baar
+```
+
+## List vs NumPy (Vectorization)
+```python
+l = [1, 2, 3]
+print(l * 2)          # [1,2,3,1,2,3]  (repeat)
+a = np.array([1, 2, 3])
+print(a * 2)          # [2 4 6]        (har element x2)
+print(a + a)          # [2 4 6]
+print(a ** 2)         # [1 4 9]
+```
+
+## Indexing & Slicing
+```python
+m = np.array([[1,2,3],[4,5,6],[7,8,9]])
+print(m[0, 1])        # 2
+print(m[:, 1])        # 2nd column -> [2 5 8]
+print(m[1])           # 2nd row
+print(m[0:2, 1:3])    # sub-matrix
+
+# Boolean indexing (bahut useful)
+print(m[m > 5])       # [6 7 8 9]
+# Fancy indexing
+print(m[[0, 2]])      # row 0 aur 2
+```
+
+## Important Methods / Functions
+
+| Function | Kaam |
+|----------|------|
+| `a.reshape(r, c)` | Shape badlo |
+| `a.flatten()` / `a.ravel()` | 1D banao |
+| `a.T` / `np.transpose(a)` | Transpose |
+| `np.sum, mean, median, std, var, min, max` | Statistics |
+| `a.sum(axis=0)` | Column-wise (axis=1 row-wise) |
+| `np.argmax / np.argmin` | Max/min ka index |
+| `np.sort(a)` / `np.argsort(a)` | Sort / sorted indices |
+| `np.unique(a)` | Unique values |
+| `np.where(cond, x, y)` | Condition se value choose |
+| `np.concatenate([a,b])` | Jodo |
+| `np.vstack / np.hstack` | Vertical / horizontal stack |
+| `np.split(a, n)` | Todo |
+| `np.dot(a,b)` / `a @ b` | Matrix multiplication |
+| `np.linalg.inv / det / eig` | Linear algebra |
+| `np.cumsum / np.cumprod` | Cumulative |
+| `np.round, floor, ceil, abs, sqrt, exp, log` | Math |
+| `np.isnan(a)` | NaN check |
+| `np.any / np.all` | Boolean check |
+| `np.append / np.insert / np.delete` | Add/remove |
+| `np.save / np.load` | File save/load |
+| `a.astype(float)` | Type change |
+| `np.copy(a)` | Copy |
+
+```python
+a = np.array([[1, 2], [3, 4]])
+print(a.sum(), a.sum(axis=0), a.sum(axis=1))   # 10 [4 6] [3 7]
+print(a.mean(), a.std())
+print(np.where(a > 2, "bada", "chhota"))
+print(a @ a)                                   # matrix multiply
+print(a.reshape(4))                            # [1 2 3 4]
+```
+
+## Broadcasting
+**Kya hai?** Alag shape ke arrays par operation, NumPy chhote array ko automatically "failaa" deta hai.
+```python
+m = np.array([[1,2,3],[4,5,6]])
+print(m + np.array([10, 20, 30]))   # har row me add
+print(m * 2)
+```
+
+## ⚠️ View vs Copy (Trap)
+```python
+a = np.array([1,2,3,4])
+b = a[1:3]        # VIEW (same memory)
+b[0] = 99
+print(a)          # [ 1 99  3  4]  <- a bhi change!
+c = a[1:3].copy() # independent copy
+```
+
+## Real Example: Marks Analysis
+```python
+marks = np.array([[80, 90, 70], [60, 75, 85], [95, 88, 92]])   # 3 students x 3 subjects
+print("Student avg:", marks.mean(axis=1))
+print("Subject avg:", marks.mean(axis=0))
+print("Topper index:", marks.sum(axis=1).argmax())
+print("Fail (<70):", marks[marks < 70])
+```
+
+---
+
+# 34. Pandas
+
+**Kya hai?** Data analysis library. Do main structures: **Series** (1D) aur **DataFrame** (2D table, Excel jaisa).
+**Kyun?** CSV/Excel/SQL data read, clean, filter, group, analyze karna easy.
+**Kab?** Data cleaning, reporting, EDA (exploratory analysis), ML se pehle data prep.
+
+```bash
+pip install pandas openpyxl
+```
+
+## Series aur DataFrame
+```python
+import pandas as pd
+
+s = pd.Series([10, 20, 30], index=["a", "b", "c"])
+print(s["b"])      # 20
+
+data = {
+    "name": ["Ravi", "Amit", "Neha", "Sita"],
+    "age": [25, 30, 22, 28],
+    "city": ["Delhi", "Mumbai", "Delhi", "Pune"],
+    "salary": [50000, 60000, 45000, 70000],
+}
+df = pd.DataFrame(data)
+print(df)
+```
+
+## Data Read / Write
+```python
+df = pd.read_csv("data.csv")
+df = pd.read_excel("data.xlsx")
+df = pd.read_json("data.json")
+df.to_csv("out.csv", index=False)
+df.to_excel("out.xlsx", index=False)
+df.to_json("out.json")
+# SQL: pd.read_sql(query, connection)
+```
+
+## Data Dekhna (Inspect)
+```python
+df.head()          # pehli 5 rows
+df.tail(3)         # last 3
+df.shape           # (rows, cols)
+df.columns         # column names
+df.dtypes          # data types
+df.info()          # summary
+df.describe()      # statistics
+df.isnull().sum()  # har column me missing values
+df["city"].value_counts()
+df["city"].unique(), df["city"].nunique()
+```
+
+## Selecting Data
+```python
+df["name"]                    # ek column (Series)
+df[["name", "age"]]           # multiple columns
+df.loc[0]                     # label se row
+df.loc[0, "name"]
+df.loc[0:2, ["name","age"]]   # label based (end include hota hai)
+df.iloc[0]                    # position se row
+df.iloc[0:2, 0:2]             # position based (end exclude)
+```
+**`loc` vs `iloc`:** `loc` = label, `iloc` = integer position.
+
+## Filtering
+```python
+df[df["age"] > 25]
+df[(df["age"] > 25) & (df["city"] == "Delhi")]   # & | ~ use karo (and/or nahi)
+df[df["city"].isin(["Delhi", "Pune"])]
+df[df["name"].str.startswith("R")]
+df.query("age > 25 and salary > 50000")
+```
+
+## Add / Modify / Delete
+```python
+df["bonus"] = df["salary"] * 0.1                 # naya column
+df["grade"] = df["age"].apply(lambda x: "Senior" if x > 27 else "Junior")
+df.rename(columns={"name": "Name"}, inplace=True)
+df.drop("bonus", axis=1, inplace=True)           # column drop
+df.drop(0, axis=0)                               # row drop
+df.sort_values("salary", ascending=False)
+df.sort_values(["city", "salary"])
+df.reset_index(drop=True)
+df.set_index("name")
+```
+
+## Missing Data Handle (Data Cleaning)
+```python
+df.isnull()                       # True/False table
+df.dropna()                       # missing rows hatao
+df.dropna(subset=["age"])
+df.fillna(0)                      # 0 se bharo
+df["age"].fillna(df["age"].mean(), inplace=True)
+df.drop_duplicates()
+df["age"] = df["age"].astype(int)
+df["date"] = pd.to_datetime(df["date"])
+df["name"] = df["name"].str.strip().str.title()
+```
+
+## GroupBy (Bahut Important)
+**Kya hai?** Data ko group karke aggregate (sum, mean) nikalna. SQL ke `GROUP BY` jaisa.
+```python
+df.groupby("city")["salary"].mean()
+df.groupby("city").agg({"salary": ["mean", "max"], "age": "min"})
+df.groupby("city").size()
+```
+
+## Merge / Join / Concat
+```python
+a = pd.DataFrame({"id": [1,2,3], "name": ["A","B","C"]})
+b = pd.DataFrame({"id": [1,2,4], "marks": [90,80,70]})
+pd.merge(a, b, on="id", how="inner")   # inner, left, right, outer
+pd.concat([a, a], axis=0)              # niche jodo
+pd.concat([a, b], axis=1)              # side me jodo
+```
+
+## Pivot Table & Others
+```python
+df.pivot_table(values="salary", index="city", aggfunc="mean")
+pd.crosstab(df["city"], df["grade"])
+df["salary"].rank()
+df["salary"].cumsum()
+df["salary"].rolling(2).mean()         # moving average
+df.corr(numeric_only=True)             # correlation
+```
+
+## Pandas Important Methods Table
+
+| Method | Kaam |
+|--------|------|
+| `head/tail/info/describe/shape` | Data samajhna |
+| `loc/iloc/at/iat` | Select |
+| `query/isin/between` | Filter |
+| `sort_values/sort_index` | Sort |
+| `groupby/agg/transform` | Group |
+| `merge/join/concat` | Combine |
+| `apply/map/applymap/replace` | Transform |
+| `fillna/dropna/isnull/notnull` | Missing |
+| `drop/drop_duplicates/rename` | Clean |
+| `value_counts/unique/nunique` | Count |
+| `pivot/pivot_table/melt/stack` | Reshape |
+| `str.*` (lower, upper, contains, replace, split) | Text |
+| `dt.*` (year, month, day, dayofweek) | Date |
+| `astype/to_datetime/to_numeric` | Type |
+| `plot()` | Quick chart (matplotlib chahiye) |
+
+```python
+df["date"] = pd.to_datetime(["2026-01-05", "2026-02-10", "2026-02-15", "2026-03-01"])
+df["month"] = df["date"].dt.month
+print(df["name"].str.contains("a", case=False))
+```
+
+## Real Example: Sales Report
+```python
+import pandas as pd
+
+sales = pd.DataFrame({
+    "product": ["Pen", "Book", "Pen", "Bag", "Book", "Pen"],
+    "qty": [10, 5, 20, 2, 8, 15],
+    "price": [10, 200, 10, 500, 200, 10],
+})
+sales["revenue"] = sales["qty"] * sales["price"]
+
+report = sales.groupby("product").agg(
+    total_qty=("qty", "sum"),
+    total_revenue=("revenue", "sum"),
+).sort_values("total_revenue", ascending=False)
+
+print(report)
+print("Best product:", report.index[0])
+report.to_csv("sales_report.csv")
+```
+
+## ⚠️ Common Pandas Mistakes
+- `df[df.a > 1 and df.b < 5]` galat hai. Sahi: `df[(df.a > 1) & (df.b < 5)]`
+- Chained assignment `df[df.a>1]["b"] = 0` kaam nahi karta. Use `df.loc[df.a>1, "b"] = 0`
+- Bade data ke liye `for` loop se bacho, vectorized ops ya `apply` use karo.
+
+## NumPy / Pandas Interview Questions
+1. **Python list vs NumPy array?** NumPy homogeneous, fast, kam memory, vectorized.
+2. **Series vs DataFrame?** Series 1D, DataFrame 2D table.
+3. **`loc` vs `iloc`?** Label vs position.
+4. **Broadcasting kya hai?** Alag shape ke arrays par automatic expand karke operation.
+5. **View vs Copy in NumPy?** Slice view hota hai (same memory), `.copy()` independent.
+6. **`merge` vs `join` vs `concat`?** merge = key se SQL jaisa join, join = index se, concat = stack karna.
+7. **Missing values kaise handle karte ho?** `dropna`, `fillna` (mean/median/mode), ya interpolation.
+8. **`apply` vs `map` vs vectorized?** Vectorized sabse fast, `apply` row/column function, `map` Series element-wise.
+9. **`axis=0` vs `axis=1`?** 0 = rows ke across (column-wise result), 1 = columns ke across (row-wise result).
+10. **`inplace=True` kya karta hai?** Original DataFrame badal deta hai (aajkal avoid karne ki salah).
+
+## NumPy / Pandas Practice Questions
+1. 1 se 20 ka array banao, usme se sirf even numbers nikalo.
+2. 3x3 random matrix banao, uska transpose aur determinant nikalo.
+3. Array me 50 se bade numbers ko 50 se replace karo (`np.where`).
+4. Do matrices multiply karo (`@`).
+5. CSV load karke missing values gino aur mean se fill karo.
+6. City-wise average salary nikalo.
+7. Top 3 highest salary wale employees dikhao.
+8. Duplicate rows hatao aur count batao kitne the.
+9. Do DataFrames ko `id` pe left join karo.
+10. Date column se month-wise total sales nikalo.
+
+---
+
+# 🗺️ Learning Roadmap
+
+1. **Week 1–2:** Basics, strings, list/dict/set, loops, functions
+2. **Week 3:** File handling, exceptions, modules
+3. **Week 4–5:** OOP, decorators, generators
+4. **Week 6:** Standard libs, regex, testing
+5. **Week 7+:** Specialization — Web / Data / ML / Automation
+6. **Roz:** 2–3 problems (LeetCode / HackerRank / CodeChef)
+
+---
+
+# ✅ Quick Revision Cheat-Sheet
+
+| Concept | Yaad rakho |
+|---------|-----------|
+| Mutable | list, dict, set |
+| Immutable | int, float, str, tuple, frozenset, bool |
+| Lookup fast | set, dict (O(1)) |
+| Memory save | generator |
+| Resource cleanup | `with` |
+| Function wrap | decorator |
+| Default arg trap | `None` use karo |
+| Copy | `copy.deepcopy` for nested |
+| CPU-bound | multiprocessing |
+| I/O-bound | threading / asyncio |
+| Private | `__x` (mangling) |
+| Unique + order | `dict.fromkeys()` |
+
+---
+
+> 🎉 **All the best!** Roz practice karo, projects banao, aur concepts ko samajhkar padho — sirf ratta mat maro. Koi topic aur detail me chahiye to batao!
